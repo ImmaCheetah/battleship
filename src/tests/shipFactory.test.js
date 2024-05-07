@@ -27,3 +27,15 @@ test('Hit function adds 1 to hits when called', () => {
     testShip.hit()
     expect(testShip.hits).toEqual(1);
 })
+
+test('isSunk function exists', () => {
+    expect(Ship(4).isSunk).toBeDefined();
+})
+
+test('isSunk returns true when ship is sunk', () => {
+    let testShip = Ship(3);
+    testShip.hit()
+    testShip.hit()
+    testShip.hit()
+    expect(testShip.isSunk()).toEqual(true)
+})

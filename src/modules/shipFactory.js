@@ -5,11 +5,22 @@ function Ship(length, hits = 0) {
         hits += 1;
     }
 
-    return { length, 
-        hit, 
+    const isSunk = () => {
+        if (length === hits) {
+            return true;
+        }
+        return false
+    }
+
+    return { 
+        get length() {
+            return length;
+        }, 
         get hits() {
             return hits;
-        }, 
+        },
+        hit, 
+        isSunk 
     }
 }
 
