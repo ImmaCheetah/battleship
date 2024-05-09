@@ -7,8 +7,23 @@ function Gameboard() {
         board[i][j] = [];
       }
     }
+
+    const placeShip = (ship, y, x) => {
+        let startCoord = board[x][y];
+        
+        for (let i = 0; i < ship.length; i++) {
+            board[x][y] = ship;
+            y += 1;
+        }
+        // board[1][1] = 1;
+        // board[1][2] = 1;
+        // board[1][3] = 1;
+
+        return board;
+        
+    }
     
-    return {board}
+    return {board, placeShip}
 }
 
 export {Gameboard}
