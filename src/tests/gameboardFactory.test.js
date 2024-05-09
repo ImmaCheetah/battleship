@@ -23,7 +23,7 @@ test('Generates a 10x10 array', () => {
 test('Able to place ship on board horizontally', () => {
     let testBoard = Gameboard();
     let testShip = Ship(3)
-    testBoard.placeShip(testShip, 1, 1)
+    testBoard.placeShip(testShip, 1, 1, true)
     let expected = [
     [[], [], [], [], [], [], [], [], [], []], 
     [[], [1], [1], [1], [], [], [], [], [], []], 
@@ -39,5 +39,19 @@ test('Able to place ship on board horizontally', () => {
     expect(testBoard.board[1][1]).toEqual(testShip);
     expect(testBoard.board[1][2]).toEqual(testShip);
     expect(testBoard.board[1][3]).toEqual(testShip);
+})
 
+test('Able to place ship on board vertically', () => {
+    let testBoard = Gameboard();
+    let testShip = Ship(3);
+    testBoard.placeShip(testShip, 1, 1, false)
+    expect(testBoard.board[1][1]).toEqual(testShip);
+    expect(testBoard.board[2][1]).toEqual(testShip);
+    expect(testBoard.board[3][1]).toEqual(testShip);
+})
+
+test('Throws error if ship is placed out of bounds', () => {
+    let testBoard = Gameboard();
+    let testShip = Ship(3);
+    expect(() => testBoard.placeShip(testShip, 0, 7, true)).toThrow('Ship is out of bounds');
 })
