@@ -12,6 +12,13 @@ test('Returns the length of ship', () => {
     expect(Ship(4).length).toEqual(4);
 })
 
+test('Returns correct name based on ship length', () => {
+    expect(Ship(4).name).toEqual('Battleship');
+    expect(Ship(2).name).toEqual('Cruiser');
+    expect(Ship(3).name).toEqual('Submarine');
+    expect(Ship(5).name).toEqual('Carrier');
+})
+
 test('Hits parameter defaults as 0', () => {
     let testShip = Ship(4);
     expect(testShip.hits).toEqual(0);

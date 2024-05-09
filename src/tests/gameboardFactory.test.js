@@ -23,6 +23,10 @@ test('Generates a 10x10 array', () => {
 test('Able to place ship on board horizontally', () => {
     let testBoard = Gameboard();
     let testShip = Ship(3)
+    let cellObject = {
+        shipName: testShip,
+
+    }
     testBoard.placeShip(testShip, 1, 1, true)
     let expected = [
     [[], [], [], [], [], [], [], [], [], []], 
@@ -36,9 +40,9 @@ test('Able to place ship on board horizontally', () => {
     [[], [], [], [], [], [], [], [], [], []], 
     [[], [], [], [], [], [], [], [], [], []]
     ]
-    expect(testBoard.board[1][1]).toEqual(testShip);
-    expect(testBoard.board[1][2]).toEqual(testShip);
-    expect(testBoard.board[1][3]).toEqual(testShip);
+    expect(testBoard.board[1][1]).toEqual(cellObject);
+    expect(testBoard.board[1][2]).toEqual(cellObject);
+    expect(testBoard.board[1][3]).toEqual(cellObject);
 })
 
 test('Able to place ship on board vertically', () => {

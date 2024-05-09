@@ -12,22 +12,25 @@ function Gameboard() {
     const placeShip = (ship, y, x, layout) => {
 
         checkOutOfBounds(ship, y, x);
+
+        let cellObject = {
+            shipName: ship,
+
+        }
         
         for (let i = 0; i < ship.length; i++) {
             // If there is layout it will be horizontal else it will be vertical
             if (layout) {
-                board[y][x] = ship;
+                board[y][x] = cellObject;
                 x += 1;
-                
             } else {
-                board[y][x] = ship;
+                board[y][x] = cellObject;
                 y += 1;
             }
         }
-
-        return board;
-        
+        return board;  
     }
+
 
     const checkOutOfBounds = (ship, y, x) => {
         let shipLength = ship.length;
