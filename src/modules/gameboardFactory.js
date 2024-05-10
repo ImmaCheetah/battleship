@@ -13,7 +13,7 @@ function Gameboard() {
         checkOverlap(ship, y, x, layout);
         checkOutOfBounds(ship, y, x);
 
-        let cellObject = {
+        let cellShipObject = {
             shipObj: ship,
             shipName: ship.name,
             beenHit: false
@@ -22,10 +22,10 @@ function Gameboard() {
         for (let i = 0; i < ship.length; i++) {
             // If there is layout it will be horizontal else it will be vertical
             if (layout) {
-                board[y][x] = cellObject;
+                board[y][x] = cellShipObject;
                 x += 1;
             } else {
-                board[y][x] = cellObject;
+                board[y][x] = cellShipObject;
                 y += 1;
             }
         }
@@ -34,22 +34,14 @@ function Gameboard() {
 
     const receiveAttack = (y, x) => {
         let targetCell = board[y][x];
+        let missedHit = true;
 
         if (targetCell.length != 0) {
             targetCell.shipObj.hit();
             targetCell.beenHit = true;
-            return true;
         } else {
-            return false;
+            targetCell = {missedHit};
         }
-
-
-        // look at x and y in the array
-        // check if there is a ship
-        // call hit() function on ship at x and y
-        //   - increase hits by 1
-        // if there is no ship then record missed coordinates
-        
     }
 
     const checkOutOfBounds = (ship, y, x) => {
