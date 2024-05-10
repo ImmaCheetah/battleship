@@ -10,12 +10,13 @@ function Gameboard() {
     }
 
     const placeShip = (ship, y, x, layout) => {
-
+        checkOverlap(ship, y, x, layout);
         checkOutOfBounds(ship, y, x);
 
         let cellObject = {
-            shipName: ship,
-
+            shipObj: ship,
+            shipName: ship.name,
+            beenHit: false
         }
         
         for (let i = 0; i < ship.length; i++) {
@@ -31,6 +32,25 @@ function Gameboard() {
         return board;  
     }
 
+    const receiveAttack = (y, x) => {
+        let targetCell = board[y][x];
+
+        if (targetCell.length != 0) {
+            targetCell.shipObj.hit();
+            targetCell.beenHit = true;
+            return true;
+        } else {
+            return false;
+        }
+
+
+        // look at x and y in the array
+        // check if there is a ship
+        // call hit() function on ship at x and y
+        //   - increase hits by 1
+        // if there is no ship then record missed coordinates
+        
+    }
 
     const checkOutOfBounds = (ship, y, x) => {
         let shipLength = ship.length;
@@ -44,8 +64,26 @@ function Gameboard() {
             return true;
         }
     }
+
+    const checkOverlap = (ship, y, x, layout) => {
+
+        if (board[y][x].length != 0) {
+            throw ('A ship exists in that location');
+        }
+
+        for (let i = 0; i < ship.length; i++) {
+            if (board[y][x].length != 0) {
+                throw ('A ship exists in that location');
+            }
+            if (layout) {
+                x += 1;
+            } else {
+                y += 1;
+            }
+        }
+    }
     
-    return {board, placeShip}
+    return {board, placeShip, receiveAttack}
 }
 
 export {Gameboard}
