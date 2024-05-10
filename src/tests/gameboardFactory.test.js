@@ -103,8 +103,26 @@ test('Records missed hit', () => {
     let testBoard = Gameboard();
     
     testBoard.receiveAttack(1,1)
-    // testBoard.receiveAttack(1,2)
-    // testBoard.receiveAttack(1,3)
+    testBoard.receiveAttack(2,5)
+    testBoard.receiveAttack(7,3)
 
-    expect(testBoard.board[1][1]).toEqual(true);
+    expect(testBoard.board[1][1].missedHit).toEqual(true);
+    expect(testBoard.board[2][5].missedHit).toEqual(true);
+    expect(testBoard.board[7][3].missedHit).toEqual(true);
+
+    expect(testBoard.missedHits[0]).toEqual([1,1])
+    expect(testBoard.missedHits[1]).toEqual([2,5])
+    expect(testBoard.missedHits[2]).toEqual([7,3])
+})
+
+test('Throws error if trying to attack an already hit spot', () => {
+    let testBoard = Gameboard();
+    let testShip = Ship(4);
+    testBoard.placeShip(testShip, 2, 2, true)
+    testBoard.receiveAttack(2,2)
+    testBoard.receiveAttack(5,5)
+
+    expect(() => testBoard.receiveAttack(2,2)).toThrow('Been hit already');
+    expect(() => testBoard.receiveAttack(5,5)).toThrow('Been hit already');
+
 })
