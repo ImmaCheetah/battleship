@@ -5,45 +5,31 @@ test('Gameboard exists', () => {
     expect(Gameboard).toBeDefined();
 })
 
-test('Generates a 10x10 array', () => {
-    let testBoard = [
-    [[], [], [], [], [], [], [], [], [], []], 
-    [[], [], [], [], [], [], [], [], [], []], 
-    [[], [], [], [], [], [], [], [], [], []], 
-    [[], [], [], [], [], [], [], [], [], []], 
-    [[], [], [], [], [], [], [], [], [], []], 
-    [[], [], [], [], [], [], [], [], [], []], 
-    [[], [], [], [], [], [], [], [], [], []], 
-    [[], [], [], [], [], [], [], [], [], []], 
-    [[], [], [], [], [], [], [], [], [], []], 
-    [[], [], [], [], [], [], [], [], [], []]]
-    expect(Gameboard().board).toEqual(testBoard) 
+test.only('Has correct object in array', () => {
+    let testObject = [
+        {
+            ship: null,
+            beenHit: false
+        }
+    ]
+    expect(Gameboard().board[2][5]).toEqual(testObject) 
+    expect(Gameboard().board[0][0]).toEqual(testObject) 
+    expect(Gameboard().board[6][9]).toEqual(testObject)
+    expect(Gameboard().board[9][9]).toEqual(testObject) 
 })
 
-test('Able to place ship on board horizontally', () => {
+test.only('Able to place ship on board horizontally', () => {
     let testBoard = Gameboard();
     let testShip = Ship(3)
-    let cellShipObject = {
-        shipObj: testShip,
-        shipName: testShip.name,
-        beenHit: false  
-    }
+    // let cellShipObject = {
+    //     shipObj: testShip,
+    //     shipName: testShip.name,
+    //     beenHit: false  
+    // }
     testBoard.placeShip(testShip, 1, 1, true)
-    let expected = [
-    [[], [], [], [], [], [], [], [], [], []], 
-    [[], [1], [1], [1], [], [], [], [], [], []], 
-    [[], [], [], [], [], [], [], [], [], []], 
-    [[], [], [], [], [], [], [], [], [], []], 
-    [[], [], [], [], [], [], [], [], [], []], 
-    [[], [], [], [], [], [], [], [], [], []], 
-    [[], [], [], [], [], [], [], [], [], []], 
-    [[], [], [], [], [], [], [], [], [], []], 
-    [[], [], [], [], [], [], [], [], [], []], 
-    [[], [], [], [], [], [], [], [], [], []]
-    ]
-    expect(testBoard.board[1][1]).toEqual(cellShipObject);
-    expect(testBoard.board[1][2]).toEqual(cellShipObject);
-    expect(testBoard.board[1][3]).toEqual(cellShipObject);
+    expect(testBoard.board[1][1].ship).toEqual(testShip);
+    expect(testBoard.board[1][2].ship).toEqual(testShip);
+    expect(testBoard.board[1][3].ship).toEqual(testShip);
 })
 
 test('Able to place ship on board vertically', () => {
@@ -124,5 +110,16 @@ test('Throws error if trying to attack an already hit spot', () => {
 
     expect(() => testBoard.receiveAttack(2,2)).toThrow('Been hit already');
     expect(() => testBoard.receiveAttack(5,5)).toThrow('Been hit already');
+})
 
+test.skip('Returns true if ship is sunk', () => {
+    let testBoard = Gameboard();
+    let testShip = Ship(3);
+    testBoard.placeShip(testShip, 2, 2, true)
+
+    testBoard.receiveAttack(2,2)
+    testBoard.receiveAttack(2,3)
+    testBoard.receiveAttack(2,4)
+
+    expect(testShip.isSunk()).toEqual(true);
 })

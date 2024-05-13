@@ -3,29 +3,34 @@ function Gameboard() {
     let missedHits = [];
     // Create 10x10 array
     for (let i = 0; i < 10; i++) {
-      board[i] = [];
+      board[i] = [
+        {
+            ship: null,
+            beenHit: false
+        }
+      ];
       for (let j = 0; j < 10; j++) {
-        board[i][j] = [];
+        board[i][j] = [
+            {
+                ship: null,
+                beenHit: false
+            }
+        ];
       }
     }
 
     const placeShip = (ship, y, x, layout) => {
+        let targetCell = board[x][y];
         checkOverlap(ship, y, x, layout);
         checkOutOfBounds(ship, y, x);
-
-        let cellShipObject = {
-            shipObj: ship,
-            shipName: ship.name,
-            beenHit: false
-        }
         
         for (let i = 0; i < ship.length; i++) {
             // If there is layout it will be horizontal else it will be vertical
             if (layout) {
-                board[y][x] = cellShipObject;
+                targetCell.ship = ship;
                 x += 1;
             } else {
-                board[y][x] = cellShipObject;
+                targetCell.ship = ship;
                 y += 1;
             }
         }
@@ -63,12 +68,12 @@ function Gameboard() {
 
     const checkOverlap = (ship, y, x, layout) => {
 
-        if (board[y][x].length != 0) {
+        if (board[y][x].ship != null) {
             throw ('A ship exists in that location');
         }
 
         for (let i = 0; i < ship.length; i++) {
-            if (board[y][x].length != 0) {
+            if (board[y][x].ship != null) {
                 throw ('A ship exists in that location');
             }
             if (layout) {
