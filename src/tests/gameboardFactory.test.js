@@ -5,27 +5,24 @@ test('Gameboard exists', () => {
     expect(Gameboard).toBeDefined();
 })
 
-test.only('Has correct object in array', () => {
-    let testObject = [
+test('Has correct object in array', () => {
+    let testObject = 
         {
             ship: null,
-            beenHit: false
+            beenHit: false,
+            missedHit: false
         }
-    ]
+    
     expect(Gameboard().board[2][5]).toEqual(testObject) 
     expect(Gameboard().board[0][0]).toEqual(testObject) 
     expect(Gameboard().board[6][9]).toEqual(testObject)
     expect(Gameboard().board[9][9]).toEqual(testObject) 
 })
 
-test.only('Able to place ship on board horizontally', () => {
+test('Able to place ship on board horizontally', () => {
     let testBoard = Gameboard();
     let testShip = Ship(3)
-    // let cellShipObject = {
-    //     shipObj: testShip,
-    //     shipName: testShip.name,
-    //     beenHit: false  
-    // }
+    
     testBoard.placeShip(testShip, 1, 1, true)
     expect(testBoard.board[1][1].ship).toEqual(testShip);
     expect(testBoard.board[1][2].ship).toEqual(testShip);
@@ -34,22 +31,20 @@ test.only('Able to place ship on board horizontally', () => {
 
 test('Able to place ship on board vertically', () => {
     let testBoard = Gameboard();
-    let testShip = Ship(3);
-    let cellShipObject = {
-        shipObj: testShip,
-        shipName: testShip.name,
-        beenHit: false  
-    }
+    let testShip = Ship(3)
+    
     testBoard.placeShip(testShip, 1, 1, false)
-    expect(testBoard.board[1][1]).toEqual(cellShipObject);
-    expect(testBoard.board[2][1]).toEqual(cellShipObject);
-    expect(testBoard.board[3][1]).toEqual(cellShipObject);
+    expect(testBoard.board[1][1].ship).toEqual(testShip);
+    expect(testBoard.board[2][1].ship).toEqual(testShip);
+    expect(testBoard.board[3][1].ship).toEqual(testShip);
 })
 
 test('Throws error if ship is placed out of bounds', () => {
     let testBoard = Gameboard();
     let testShip = Ship(3);
     expect(() => testBoard.placeShip(testShip, 0, 7, true)).toThrow('Ship is out of bounds');
+    expect(() => testBoard.placeShip(testShip, -1, 0, false)).toThrow('Ship is out of bounds');
+    expect(() => testBoard.placeShip(testShip, 8, 8, false)).toThrow('Ship is out of bounds');
 })
 
 test('Throws error if ship is being placed on another ship', () => {
@@ -112,7 +107,7 @@ test('Throws error if trying to attack an already hit spot', () => {
     expect(() => testBoard.receiveAttack(5,5)).toThrow('Been hit already');
 })
 
-test.skip('Returns true if ship is sunk', () => {
+test('Returns true if ship is sunk', () => {
     let testBoard = Gameboard();
     let testShip = Ship(3);
     testBoard.placeShip(testShip, 2, 2, true)
@@ -122,4 +117,22 @@ test.skip('Returns true if ship is sunk', () => {
     testBoard.receiveAttack(2,4)
 
     expect(testShip.isSunk()).toEqual(true);
+})
+
+test('Returns a message when all ships are sunk', () => {
+    let testBoard = Gameboard();
+    let ship1 = Ship(2);
+    let ship2 = Ship(3);
+
+    testBoard.placeShip(ship1, 1, 1, true);
+    testBoard.placeShip(ship2, 5, 3, false);
+
+    testBoard.receiveAttack(1, 1);
+    testBoard.receiveAttack(1, 2);
+
+    testBoard.receiveAttack(5, 3);
+    testBoard.receiveAttack(6, 3);
+    testBoard.receiveAttack(7, 3);
+
+    expect(testBoard.allShipsSunk()).toEqual(true);
 })

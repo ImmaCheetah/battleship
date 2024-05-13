@@ -1,36 +1,33 @@
 function Gameboard() {
     let board = [];
+    let placedShips = [];
     let missedHits = [];
     // Create 10x10 array
     for (let i = 0; i < 10; i++) {
-      board[i] = [
+      board[i] = [];
+      for (let j = 0; j < 10; j++) {
+        board[i][j] = 
         {
             ship: null,
-            beenHit: false
-        }
-      ];
-      for (let j = 0; j < 10; j++) {
-        board[i][j] = [
-            {
-                ship: null,
-                beenHit: false
-            }
-        ];
+            beenHit: false,
+            missedHit: false
+        };
       }
     }
 
     const placeShip = (ship, y, x, layout) => {
-        let targetCell = board[x][y];
-        checkOverlap(ship, y, x, layout);
         checkOutOfBounds(ship, y, x);
+        checkOverlap(ship, y, x, layout);
         
+        placedShips.push(ship);
+
         for (let i = 0; i < ship.length; i++) {
             // If there is layout it will be horizontal else it will be vertical
             if (layout) {
-                targetCell.ship = ship;
+                board[y][x].ship = ship;
                 x += 1;
             } else {
-                targetCell.ship = ship;
+                board[y][x].ship = ship;
                 y += 1;
             }
         }
@@ -44,13 +41,29 @@ function Gameboard() {
             throw ('Been hit already');
         }
 
-        if (targetCell.length != 0) {
-            targetCell.shipObj.hit();
+        if (targetCell.ship != null) {
+            targetCell.ship.hit();
             targetCell.beenHit = true;
         } else {
-            board[y][x] = {missedHit: true};
+            board[y][x].missedHit = true;
             missedHits.push([y,x])
         }
+    }
+
+    const allShipsSunk = () => {
+        let counter = 0;
+        placedShips.forEach((object) => {
+            if (object.isSunk()) {
+                counter += 1;
+            }
+        })
+
+        if (counter === placedShips.length) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     const checkOutOfBounds = (ship, y, x) => {
@@ -84,7 +97,7 @@ function Gameboard() {
         }
     }
     
-    return {board, placeShip, receiveAttack, get missedHits() {
+    return {board, placeShip, receiveAttack, allShipsSunk, get missedHits() {
         return missedHits;
     }}
 }
