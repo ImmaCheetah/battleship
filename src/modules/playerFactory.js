@@ -11,8 +11,9 @@ function Player(type) {
         throw ('Wrong input given');
     }
 
-    const playerPlaceShip = (y, x) => {
-        playerBoard.placeShip(y,x);
+    const playerPlaceShip = (ship, y, x, layout) => {
+        
+        playerBoard.placeShip(ship, y, x, layout);
     }
     
     return {playerBoard, computerBoard, playerPlaceShip}

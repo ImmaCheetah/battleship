@@ -15,7 +15,8 @@ test('Player returns correct board based on input', () => {
 
 test('Able to place ship using board', () => {
     let testPlayer = Player('player');
-    expect(testPlayer.playerPlaceShip(3,3)).toEqual(testPlayer.playerBoard.placeShip(3,3))
+    testPlayer.playerPlaceShip(3,3)
+    expect(testPlayer.playerBoard[3][3]).toEqual(testPlayer.playerBoard.placeShip(3,3))
 })
 
 test.skip('Throws an error if wrong input given', () => {
