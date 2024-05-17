@@ -10,8 +10,12 @@ function Player(type) {
     } else {
         throw ('Wrong input given');
     }
+
+    const playerPlaceShip = (y, x) => {
+        playerBoard.placeShip(y,x);
+    }
     
-    return {playerBoard, computerBoard}
+    return {playerBoard, computerBoard, playerPlaceShip}
 }
 
 export { Player }
