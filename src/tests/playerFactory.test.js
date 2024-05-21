@@ -1,25 +1,24 @@
 import { Gameboard } from "../modules/gameboardFactory";
 import { Player } from "../modules/playerFactory";
+import { Ship } from "../modules/shipFactory";
 
 test('Player factory exists', () => {
     expect(Player).toBeDefined();
 })
 
-test('Player returns correct board based on input', () => {
-    let testPlayer = Player('player');
-    let testComputer = Player('computer');
-    let testBoard = JSON.stringify(Gameboard());
-    expect(JSON.stringify(testPlayer.playerBoard)).toBe(testBoard);
-    expect(JSON.stringify(testComputer.computerBoard)).toBe(testBoard);
+test('Player has its own board', () => {
+    let testPlayer = Player();
+    expect(testPlayer.playerBoard.placeShip).toBeDefined();
+    expect(testPlayer.playerBoard.receiveAttack).toBeDefined();
 })
 
-test('Able to place ship using board', () => {
-    let testPlayer = Player('player');
-    testPlayer.playerPlaceShip(3,3)
-    expect(testPlayer.playerBoard[3][3]).toEqual(testPlayer.playerBoard.placeShip(3,3))
+test('Able to place a ship using player', () => {
+    let testPlayer = Player();
+    let testShip = Ship(3);
+    testPlayer.placePlayerShip(testShip, 1, 1, true);
+    expect(testPlayer.playerBoard.board[1][1].ship).toEqual(testShip);
+    expect(testPlayer.playerBoard.board[1][2].ship).toEqual(testShip);
+    expect(testPlayer.playerBoard.board[1][3].ship).toEqual(testShip);
 })
 
-test.skip('Throws an error if wrong input given', () => {
-    let testPlayer = Player('kablam');
-    expect(() => Player('kablam')).toThrow('Wrong input given');
-})
+

@@ -1,22 +1,14 @@
 import { Gameboard } from "./gameboardFactory"
+// A player needs to keep track of their board, be able to place ships and attack a board
+function Player() {
+    let playerBoard = Gameboard();
 
-function Player(type) {
-    let playerBoard;
-    let computerBoard;
-    if (type === 'player') {
-        playerBoard = Gameboard();
-    } else if (type === 'computer') {
-        computerBoard = Gameboard();
-    } else {
-        throw ('Wrong input given');
-    }
-
-    const playerPlaceShip = (ship, y, x, layout) => {
+    const placePlayerShip = (ship, y, x, layout) => {
         
         playerBoard.placeShip(ship, y, x, layout);
     }
     
-    return {playerBoard, computerBoard, playerPlaceShip}
+    return { playerBoard, placePlayerShip }
 }
 
 export { Player }
