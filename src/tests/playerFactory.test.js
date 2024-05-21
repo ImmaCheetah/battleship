@@ -29,4 +29,14 @@ test('Player receives attack on its board',() => {
     expect(testPlayer.playerBoard.board[1][1].beenHit).toEqual(true);
 })
 
-
+test('Player can attack enemy board', () => {
+    let human = Player();
+    let computer = Player();
+    let testShip = Ship(3);
+    let sub = Ship(3);
+    human.placePlayerShip(testShip, 1, 1, true);
+    computer.placePlayerShip(sub, 2, 2, true);
+    
+    human.attackEnemyBoard(computer, 2, 2);
+    expect(computer.playerBoard.board[2][2].beenHit).toEqual(true);
+})

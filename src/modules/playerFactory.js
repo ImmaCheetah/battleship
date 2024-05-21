@@ -10,8 +10,12 @@ function Player() {
     const receivePlayerAttack = (y, x) => {
         playerBoard.receiveAttack(y, x);
     }
+
+    const attackEnemyBoard = (opponent, y, x) => {
+        opponent.playerBoard.receiveAttack(y, x);
+    }
     
-    return { playerBoard, placePlayerShip, receivePlayerAttack }
+    return { playerBoard, placePlayerShip, receivePlayerAttack, attackEnemyBoard }
 }
 
 export { Player }
