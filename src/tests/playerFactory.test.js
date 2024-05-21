@@ -1,3 +1,4 @@
+import { experiments } from "webpack";
 import { Gameboard } from "../modules/gameboardFactory";
 import { Player } from "../modules/playerFactory";
 import { Ship } from "../modules/shipFactory";
@@ -10,6 +11,10 @@ test('Player has its own board', () => {
     let testPlayer = Player();
     expect(testPlayer.playerBoard.placeShip).toBeDefined();
     expect(testPlayer.playerBoard.receiveAttack).toBeDefined();
+})
+
+test('Returns correct name', () => {
+    expect(Player('Jerry').playerName).toEqual('Jerry');
 })
 
 test('Able to place a ship using player', () => {

@@ -1,6 +1,6 @@
 import { Gameboard } from "./gameboardFactory"
 // A player needs to keep track of their board, be able to place ships and attack a board
-function Player() {
+function Player(playerName) {
     let playerBoard = Gameboard();
 
     const placePlayerShip = (ship, y, x, layout) => {
@@ -15,7 +15,9 @@ function Player() {
         opponent.playerBoard.receiveAttack(y, x);
     }
     
-    return { playerBoard, placePlayerShip, receivePlayerAttack, attackEnemyBoard }
+    return { get playerName() {
+        return playerName;
+    }, playerBoard, placePlayerShip, receivePlayerAttack, attackEnemyBoard }
 }
 
 export { Player }
