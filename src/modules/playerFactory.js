@@ -4,11 +4,14 @@ function Player() {
     let playerBoard = Gameboard();
 
     const placePlayerShip = (ship, y, x, layout) => {
-        
         playerBoard.placeShip(ship, y, x, layout);
     }
+
+    const receivePlayerAttack = (y, x) => {
+        playerBoard.receiveAttack(y, x);
+    }
     
-    return { playerBoard, placePlayerShip }
+    return { playerBoard, placePlayerShip, receivePlayerAttack }
 }
 
 export { Player }

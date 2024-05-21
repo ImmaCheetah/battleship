@@ -21,4 +21,12 @@ test('Able to place a ship using player', () => {
     expect(testPlayer.playerBoard.board[1][3].ship).toEqual(testShip);
 })
 
+test('Player receives attack on its board',() => {
+    let testPlayer = Player();
+    let testShip = Ship(3);
+    testPlayer.placePlayerShip(testShip, 1, 1, true);
+    testPlayer.receivePlayerAttack(1, 1);
+    expect(testPlayer.playerBoard.board[1][1].beenHit).toEqual(true);
+})
+
 
