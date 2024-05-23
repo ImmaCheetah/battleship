@@ -34,7 +34,8 @@ export default function domTest() {
         console.log(computer.playerBoard.board);
     }
 
-    populateBoardsBtn.addEventListener('click', populatePlayerBoards);
+    // populateBoardsBtn.addEventListener('click', populatePlayerBoards);
+    populatePlayerBoards();
     renderBoard(human);
     
     confirmBtn.addEventListener('click', (e) => {
@@ -44,20 +45,22 @@ export default function domTest() {
 
     // generate the human and computer board using the objects
     function renderBoard(object) {
-        const boardDiv = document.querySelector('.boards-container');
+    const boardDiv = document.querySelector('.boards-container');
 
-        const board = object.playerBoard.board;
-
-        board.forEach((element) => {
+    const board = object.playerBoard.board;
+    console.log('player board length', board.length)
+    board.forEach((element, indexY) => {
+        element.forEach((item, indexX) => {
             const gridCell = document.createElement('button');
             gridCell.classList.add('grid-cell');
+            gridCell.setAttribute('data-coords', [indexY, indexX])
             boardDiv.appendChild(gridCell)
-            element.forEach((item) => {
-                const gridCell = document.createElement('button');
-            gridCell.classList.add('grid-cell');
-            boardDiv.appendChild(gridCell)
-            })
+            if (item.ship != null) {
+                gridCell.classList.add('ship');
+            }
+            
         })
-    }
+    })
+}
 }
 

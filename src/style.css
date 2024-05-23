@@ -9,3 +9,14 @@
   appearance: none;
   border: solid 1px black;
 }
+
+.boards-container {
+  display: grid;
+  grid-template-columns: repeat(10, 50px);
+  grid-template-rows: repeat(10, 50px);
+  border: 1px solid black;
+}
+
+.ship {
+  background-color: greenyellow;
+}
