@@ -36,7 +36,8 @@ export default function domTest() {
 
     // populateBoardsBtn.addEventListener('click', populatePlayerBoards);
     populatePlayerBoards();
-    renderBoard(human);
+    renderBoard(human, 'human');
+    renderBoard(computer, 'computer');
     
     confirmBtn.addEventListener('click', (e) => {
         console.log(playerNameInput.value);
@@ -44,23 +45,21 @@ export default function domTest() {
     })
 
     // generate the human and computer board using the objects
-    function renderBoard(object) {
-    const boardDiv = document.querySelector('.boards-container');
+    function renderBoard(object, div) {
+    const boardDiv = document.querySelector(`.${div}-board`);
 
     const board = object.playerBoard.board;
-    console.log('player board length', board.length)
-    board.forEach((element, indexY) => {
-        element.forEach((item, indexX) => {
-            const gridCell = document.createElement('button');
-            gridCell.classList.add('grid-cell');
-            gridCell.setAttribute('data-coords', [indexY, indexX])
-            boardDiv.appendChild(gridCell)
-            if (item.ship != null) {
-                gridCell.classList.add('ship');
-            }
-            
+        board.forEach((element, indexY) => {
+            element.forEach((item, indexX) => {
+                const gridCell = document.createElement('button');
+                gridCell.classList.add('grid-cell');
+                gridCell.setAttribute('data-coords', [indexY, indexX])
+                boardDiv.appendChild(gridCell)
+                if (item.ship != null) {
+                    gridCell.classList.add('ship');
+                }
+            })
         })
-    })
-}
+    }
 }
 
