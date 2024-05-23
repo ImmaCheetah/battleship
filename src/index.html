@@ -4,9 +4,29 @@
     <meta charset="utf-8" />
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="index.js" defer></script>
   </head>
   <body>
-    <div class="container"></div>
-    hello
+    <h1>
+      Battleship
+    </h1>
+    <div class="container">
+      <div class="player-input">
+        <label for="player-name"></label>
+          <input type="text" name="player-name" id="player-name" placeholder="Name">
+        <button class="confirm-name">Confirm</button>
+      </div>
+      <div class="game-buttons">
+        <button class="populate-boards">Place Ships on Boards</button>
+      </div>
+      <div class="boards-container">
+        <div class="human-board">
+
+        </div>
+        <div class="computer-board">
+          
+        </div>
+      </div>
+    </div>
   </body>
 </html>

@@ -64,3 +64,5 @@ test('Computer is able to attack board at random coordinate', () => {
     testComputer.computerAttack(testHuman);
     expect(testHuman.playerBoard.missedHits.length).toBe(3);
 })
+
+

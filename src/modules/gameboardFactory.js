@@ -97,9 +97,17 @@ function Gameboard() {
         }
     }
     
-    return {board, placeShip, receiveAttack, allShipsSunk, get missedHits() {
-        return missedHits;
-    }}
+    return {
+        get board() {
+            return board;
+        }, 
+        placeShip, 
+        receiveAttack, 
+        allShipsSunk, 
+        get missedHits() {
+            return missedHits;
+        }
+    }
 }
 
 export {Gameboard}

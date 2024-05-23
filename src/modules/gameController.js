@@ -1,8 +1,8 @@
-import { Player } from "./playerFactory";
+import { Computer, Player } from "./playerFactory";
 
-function GameController() {
-    let human = Player('Player 1');
-    let computer = Player('Player 2');
+function GameController(humanName, computerName = 'Lil CPU') {
+    let human = Player(humanName);
+    let computer = Computer(computerName);
 
     let players = [human, computer];
 
@@ -13,7 +13,11 @@ function GameController() {
         opponent.receivePlayerAttack(y, x);
     }
 
-    return {currentPlayer, opponent, playRound}
+    const showBoards = () => {
+        return [human.playerBoard.board, computer.playerBoard.board];
+    }
+
+    return {currentPlayer, opponent, playRound, showBoards}
 }
 
 export {GameController}

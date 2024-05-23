@@ -1,3 +1,11 @@
 .hello {
   color: red;
 }
+
+.grid-cell {
+  width: 5px;
+  height: 5px;
+  padding: 10px;
+  appearance: none;
+  border: solid 1px black;
+}

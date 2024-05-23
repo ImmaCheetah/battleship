@@ -26,9 +26,9 @@ function Player(playerName) {
     }
 }
 
-function Computer(computerName) {
+function Computer(computerName = 'Lil CPU') {
     const computer = Player();
-    const {placePlayerShip, receivePlayerAttack, attackEnemyBoard} = computer
+    const {playerBoard, placePlayerShip, receivePlayerAttack} = computer;
 
     // Randomly choose one spot
     // Use that to attack the player
@@ -75,7 +75,10 @@ function Computer(computerName) {
         get computerName() {
             return computerName;
         },
-        placePlayerShip, receivePlayerAttack, attackEnemyBoard, computerAttack}
+        playerBoard,
+        placePlayerShip, 
+        receivePlayerAttack, 
+        computerAttack}
 }
 
 export { Player, Computer }
