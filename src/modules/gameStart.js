@@ -4,25 +4,18 @@ import { Computer, Player } from "./playerFactory";
 // Responsible for creating the players and placing the ships
 export default function startGame() {
     const startBtn = document.querySelector('.start-btn');
-    let computer = Computer();
-    let human = Player(getPlayerName());
+    
+    let placeHolder = Player()
 
-    renderBoard(computer, 'computer');
-    renderBoard(human, 'human');
+    // Render initial blank boards with placeholder object
+    renderBoard(placeHolder, 'computer');
+    renderBoard(placeHolder, 'human');
     
     function getPlayerName() {
         const playerNameInput = document.getElementById('player-name');
 
         return playerNameInput.value;
     }
-
-    startBtn.addEventListener('click', () => {
-        clearBoards();
-        populatePlayerBoards(human, computer);
-        renderBoard(computer, 'computer');
-        renderBoard(human, 'human');
-        console.log(human);
-    })
 
     function populatePlayerBoards(human, computer) {
         let humanShip1 = Ship(5);
@@ -68,4 +61,24 @@ export default function startGame() {
         humanBoard.textContent = '';
         computerBoard.textContent = '';
     }
+
+    function displayNames(humanObj, computerObj) {
+        const humanNameDiv = document.querySelector('.human-name');
+        const computerNameDiv = document.querySelector('.computer-name');
+
+        humanNameDiv.textContent = humanObj.playerName;
+        computerNameDiv.textContent = computerObj.computerName;
+    }
+
+    startBtn.addEventListener('click', () => {
+        let human = Player(getPlayerName());
+        let computer = Computer();
+
+        clearBoards();
+        displayNames(human, computer);
+        populatePlayerBoards(human, computer);
+        renderBoard(computer, 'computer');
+        renderBoard(human, 'human');
+        console.log(human, computer);
+    })
 }

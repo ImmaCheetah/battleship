@@ -23,6 +23,10 @@
   padding: 1em;
 }
 
+.name-div {
+  display: flex;
+}
+
 .ship {
   background-color: greenyellow;
 }
