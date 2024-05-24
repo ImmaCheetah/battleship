@@ -34,10 +34,11 @@ export default function domTest() {
         console.log(computer.playerBoard.board);
     }
 
-    // populateBoardsBtn.addEventListener('click', populatePlayerBoards);
-    populatePlayerBoards();
-    renderBoard(human, 'human');
-    renderBoard(computer, 'computer');
+    populateBoardsBtn.addEventListener('click', () => {
+        populatePlayerBoards();
+        renderBoard(human, 'human');
+        renderBoard(computer, 'computer');
+    });
     
     confirmBtn.addEventListener('click', (e) => {
         console.log(playerNameInput.value);
@@ -55,7 +56,7 @@ export default function domTest() {
                 gridCell.classList.add('grid-cell');
                 gridCell.setAttribute('data-coords', [indexY, indexX])
                 boardDiv.appendChild(gridCell)
-                if (item.ship != null) {
+                if (item.ship != null && div !== 'computer') {
                     gridCell.classList.add('ship');
                 }
             })
