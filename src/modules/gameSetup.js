@@ -2,7 +2,7 @@ import { Ship } from "./shipFactory";
 import { Computer, Player } from "./playerFactory";
 
 // Responsible for creating the players and placing the ships
-export default function startGame() {
+export default function setupGame() {
     const startBtn = document.querySelector('.start-btn');
     
     let placeHolder = Player()
