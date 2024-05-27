@@ -36,27 +36,25 @@ test.skip('Displays round info', () => {
     expect(testGame.printRoundInfo()).toBe(1);
 })
 // test each aspect of play round
-describe.skip('Play round function', () => {
-    test('Able to show both boards', () => {
-        let testGame = GameController('dave', 'robo');
-
-        let displayBoards = testGame.showBoards();
-        expect(displayBoards[0]).toEqual(Gameboard().board);
-        expect(displayBoards[1]).toEqual(Gameboard().board);
-    })
-
-    test.skip('Able to receive attack', () => {
+describe('Play round function', () => {
+    test.only('Attacks the right player when called', () => {
         let game = GameController();
-        let testShip = Ship(3);
-        game.opponent.placePlayerShip(testShip, 1, 1);
+        
         game.playRound(1, 1);
-        game.playRound(5, 5);
-        expect(game.opponent.playerBoard.board[1][1].beenHit).toBe(true);
-        expect(game.opponent.playerBoard.board[5][5].missedHit).toBe(true);
+        expect(game.getComputerBoard()[1][1].missedHit).toBe(true);
+
+        game.playRound(1, 1);
+        expect(game.getHumanBoard()[1][1].missedHit).toBe(true);
     }) 
 
     test('Switches player after turn is finished', () => {
+        let game = GameController('Dave');
 
+        expect(game.getCurrentPlayer().playerName).toEqual('Dave');
+
+        game.playRound();
+
+        expect(game.getCurrentPlayer().playerName).toEqual('Lil CPU');
     })
 })
 

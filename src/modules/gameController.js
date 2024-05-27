@@ -10,7 +10,17 @@ function GameController(humanName, computerName = 'Lil CPU') {
     let opponent = players[1];
     
     const playRound = (y, x) => {
-        opponent.receivePlayerAttack(y, x);
+        // Check if player is human and call correct method on computer
+        printRoundInfo();
+        if (getCurrentPlayer() == players[0]) {
+            opponent.receivePlayerAttack(y, x);
+            console.log('This is computer board when current player is human', getComputerBoard())
+        // If computer then call computerAttack on human
+        } else {
+            console.log('This is human board when current player is computer', getHumanBoard())
+            currentPlayer.computerAttack(human);
+        }
+        switchPlayerTurn();
     }
 
     const switchPlayerTurn = () => {
@@ -24,7 +34,7 @@ function GameController(humanName, computerName = 'Lil CPU') {
     }
 
     const printRoundInfo = () => {
-        return (`It's ${getCurrentPlayer().playerName}'s turn`)
+        console.log(`It's ${getCurrentPlayer().playerName}'s turn`)
     }
 
     const getCurrentPlayer = () => {
