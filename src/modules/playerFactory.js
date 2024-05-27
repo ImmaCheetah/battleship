@@ -26,7 +26,7 @@ function Player(playerName) {
     }
 }
 
-function Computer(computerName = 'Lil CPU') {
+function Computer(playerName = 'Lil CPU') {
     const computer = Player();
     const {playerBoard, placePlayerShip, receivePlayerAttack} = computer;
 
@@ -72,13 +72,14 @@ function Computer(computerName = 'Lil CPU') {
     let allAttacks = createArrayWithAllAttacks();
 
     return {
-        get computerName() {
-            return computerName;
+        get playerName() {
+            return playerName;
         },
         playerBoard,
         placePlayerShip, 
         receivePlayerAttack, 
-        computerAttack}
+        computerAttack
+    }
 }
 
 export { Player, Computer }

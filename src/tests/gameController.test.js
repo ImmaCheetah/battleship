@@ -1,5 +1,6 @@
 import { GameController } from "../modules/gameController";
 import { Gameboard } from "../modules/gameboardFactory";
+import { Player } from "../modules/playerFactory";
 import { Ship } from "../modules/shipFactory";
 
 test('Game controller module exists', () => {
@@ -9,11 +10,34 @@ test('Game controller module exists', () => {
 test('Returns the first player when initialized', () => {
     let game = GameController('Player 1');
 
-    expect(game.currentPlayer.playerName).toBe('Player 1');
+    expect(game.getCurrentPlayer().playerName).toBe('Player 1');
+})
+
+test('Returns the board of each player when called', () => {
+    let testGame = GameController();
+
+    expect(testGame.getHumanBoard()).toEqual(Gameboard().board)
+    expect(testGame.getComputerBoard()).toEqual(Gameboard().board)
+})
+
+test('Able to switch current player', () => {
+    let testGame = GameController('Dave');
+
+    expect(testGame.getCurrentPlayer().playerName).toEqual('Dave');
+
+    testGame.switchPlayerTurn();
+
+    expect(testGame.getCurrentPlayer().playerName).toEqual('Lil CPU');
+})
+
+test.skip('Displays round info', () => {
+    let testGame = GameController('bobby');
+
+    expect(testGame.printRoundInfo()).toBe(1);
 })
 // test each aspect of play round
-describe('Play round function', () => {
-    test.only('Able to show both boards', () => {
+describe.skip('Play round function', () => {
+    test('Able to show both boards', () => {
         let testGame = GameController('dave', 'robo');
 
         let displayBoards = testGame.showBoards();
@@ -21,7 +45,7 @@ describe('Play round function', () => {
         expect(displayBoards[1]).toEqual(Gameboard().board);
     })
 
-    test('Able to receive attack', () => {
+    test.skip('Able to receive attack', () => {
         let game = GameController();
         let testShip = Ship(3);
         game.opponent.placePlayerShip(testShip, 1, 1);
@@ -35,6 +59,7 @@ describe('Play round function', () => {
 
     })
 })
+
 
 
 // Current player is chosen off the start, will be human

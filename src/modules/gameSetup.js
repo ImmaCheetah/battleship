@@ -1,5 +1,6 @@
 import { Ship } from "./shipFactory";
 import { Computer, Player } from "./playerFactory";
+import playGame from "./gameRound";
 
 // Responsible for creating the players and placing the ships
 export default function setupGame() {
@@ -44,7 +45,7 @@ export default function setupGame() {
         thisBoard.forEach((element, indexY) => {
             element.forEach((item, indexX) => {
                 const gridCell = document.createElement('button');
-                gridCell.classList.add('grid-cell');
+                gridCell.classList.add(div, 'grid-cell');
                 gridCell.setAttribute('data-coords', [indexY, indexX])
                 boardDiv.appendChild(gridCell)
                 if (item.ship != null && div !== 'computer') {
@@ -67,7 +68,7 @@ export default function setupGame() {
         const computerNameDiv = document.querySelector('.computer-name');
 
         humanNameDiv.textContent = humanObj.playerName;
-        computerNameDiv.textContent = computerObj.computerName;
+        computerNameDiv.textContent = computerObj.playerName;
     }
 
     startBtn.addEventListener('click', () => {
@@ -80,5 +81,6 @@ export default function setupGame() {
         renderBoard(computer, 'computer');
         renderBoard(human, 'human');
         console.log(human, computer);
+        playGame();
     })
 }

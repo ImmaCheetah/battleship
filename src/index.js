@@ -9,4 +9,3 @@ import playGame from "./modules/gameRound";
 
 // let game = GameController('dab', 'robo');
 setupGame();
-playGame();

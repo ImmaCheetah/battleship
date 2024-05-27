@@ -52,7 +52,7 @@ test('Computer factory exists with unique method', () => {
 })
 
 test('Computer returns correct name', () => {
-    expect(Computer('Jerry').computerName).toEqual('Jerry');
+    expect(Computer('Jerry').playerName).toEqual('Jerry');
 })
 
 test('Computer is able to attack board at random coordinate', () => {

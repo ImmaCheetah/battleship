@@ -13,11 +13,45 @@ function GameController(humanName, computerName = 'Lil CPU') {
         opponent.receivePlayerAttack(y, x);
     }
 
-    const showBoards = () => {
-        return [human.playerBoard.board, computer.playerBoard.board];
+    const switchPlayerTurn = () => {
+        if (getCurrentPlayer() == players[0]) {
+            currentPlayer = players[1];
+            opponent = players[0];
+        } else {
+            currentPlayer = players[0];
+            opponent = players[1];
+        }
     }
 
-    return {currentPlayer, opponent, playRound, showBoards}
+    const printRoundInfo = () => {
+        return (`It's ${getCurrentPlayer().playerName}'s turn`)
+    }
+
+    const getCurrentPlayer = () => {
+        return currentPlayer;
+    }
+
+    const getOpponent = () => {
+        return opponent;
+    }
+
+    const getHumanBoard = () => {
+        return human.playerBoard.board;
+    }
+
+    const getComputerBoard = () => {
+        return computer.playerBoard.board;
+    }
+
+    return {
+        getCurrentPlayer, 
+        getOpponent, 
+        playRound, 
+        getHumanBoard, 
+        getComputerBoard, 
+        switchPlayerTurn,
+        printRoundInfo
+    }
 }
 
 export {GameController}
