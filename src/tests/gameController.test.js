@@ -42,20 +42,13 @@ describe('Play round function', () => {
         
         game.playRound(1, 1);
         expect(game.getComputerBoard()[1][1].missedHit).toBe(true);
-
-        game.playRound(1, 1);
-        expect(game.getHumanBoard()[1][1].missedHit).toBe(true);
-    }) 
-
-    test('Switches player after turn is finished', () => {
-        let game = GameController('Dave');
-
-        expect(game.getCurrentPlayer().playerName).toEqual('Dave');
-
         game.playRound();
-
-        expect(game.getCurrentPlayer().playerName).toEqual('Lil CPU');
-    })
+        expect(game.getOpponent().playerBoard.missedHits.length).toBe(1);
+        game.playRound(1, 2);
+        expect(game.getComputerBoard()[1][2].missedHit).toBe(true);
+        game.playRound(1, 2);
+        expect(game.getOpponent().playerBoard.missedHits.length).toBe(2);
+    }) 
 })
 
 

@@ -27,7 +27,7 @@ function Player(playerName) {
 }
 
 function Computer(playerName = 'Lil CPU') {
-    const computer = Player();
+    const computer = Player(playerName);
     const {playerBoard, placePlayerShip, receivePlayerAttack} = computer;
 
     // Randomly choose one spot

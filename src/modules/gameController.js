@@ -18,7 +18,9 @@ function GameController(humanName, computerName = 'Lil CPU') {
         // If computer then call computerAttack on human
         } else {
             console.log('This is human board when current player is computer', getHumanBoard())
-            currentPlayer.computerAttack(human);
+        //     console.log('This is the computer', computer);
+        //     console.log('This is the opponent', opponent);
+            currentPlayer.computerAttack(opponent);
         }
         switchPlayerTurn();
     }
