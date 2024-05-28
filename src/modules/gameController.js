@@ -23,6 +23,7 @@ function GameController(humanName, computerName = 'Lil CPU') {
             console.log('This is human board when current player is computer', getHumanBoard())
             currentPlayer.computerAttack(opponent);
         }
+        console.log(checkForWinner())
         switchPlayerTurn();
     }
 
@@ -37,21 +38,31 @@ function GameController(humanName, computerName = 'Lil CPU') {
     }
 
     const placeShipsOnBothBoards = () => {
-        let humanShip1 = Ship(5);
-        let humanShip2 = Ship(4);
+        let humanShip1 = Ship(3);
+        let humanShip2 = Ship(2);
         let humanShip3 = Ship(3);
 
-        let cpuShip1 = Ship(5);
-        let cpuShip2 = Ship(4);
+        let cpuShip1 = Ship(3);
+        let cpuShip2 = Ship(2);
         let cpuShip3 = Ship(3);
 
         human.placePlayerShip(humanShip1, 1, 1, true);
         human.placePlayerShip(humanShip2, 3, 3, true);
-        human.placePlayerShip(humanShip3, 5, 5, false);
+        // human.placePlayerShip(humanShip3, 5, 5, false);
 
         computer.placePlayerShip(cpuShip1, 0, 0, true);
         computer.placePlayerShip(cpuShip2, 1, 3, true);
-        computer.placePlayerShip(cpuShip3, 4, 4, false);
+        // computer.placePlayerShip(cpuShip3, 4, 4, false);
+    }
+
+    const checkForWinner = () => {
+        if (getCurrentPlayer().playerBoard.allShipsSunk() == true) {
+            return `${getOpponent().playerName} is the winner!`;
+        }
+
+        if (getOpponent().playerBoard.allShipsSunk() == true) {
+            return `${getCurrentPlayer().playerName} is the winner!`;
+        }
     }
 
     const printRoundInfo = () => {
@@ -83,7 +94,8 @@ function GameController(humanName, computerName = 'Lil CPU') {
         getHumanBoard, 
         getComputerBoard, 
         switchPlayerTurn,
-        printRoundInfo
+        printRoundInfo,
+        checkForWinner
     }
 }
 
