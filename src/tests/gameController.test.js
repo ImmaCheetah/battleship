@@ -30,16 +30,15 @@ test('Able to switch current player', () => {
     expect(testGame.getCurrentPlayer().playerName).toEqual('Lil CPU');
 })
 
-test.skip('Displays round info', () => {
-    let testGame = GameController('bobby');
-
-    expect(testGame.printRoundInfo()).toBe(1);
-})
 // test each aspect of play round
 describe('Play round function', () => {
-    test.only('Attacks the right player when called', () => {
-        let game = GameController();
-        
+    let game = GameController('Dave');
+    test('Places predetermined ships', () => {
+        expect(game.getCurrentPlayer().playerBoard.placedShips.length).toBeGreaterThan(2);
+        expect(game.getOpponent().playerBoard.placedShips.length).toBeGreaterThan(2);
+    })
+
+    test('Attacks the right player when called', () => {
         game.playRound(1, 1);
         expect(game.getComputerBoard()[1][1].missedHit).toBe(true);
         game.playRound();
@@ -48,7 +47,9 @@ describe('Play round function', () => {
         expect(game.getComputerBoard()[1][2].missedHit).toBe(true);
         game.playRound(1, 2);
         expect(game.getOpponent().playerBoard.missedHits.length).toBe(2);
-    }) 
+    })
+    
+    
 })
 
 

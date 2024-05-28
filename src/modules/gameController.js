@@ -1,4 +1,5 @@
 import { Computer, Player } from "./playerFactory";
+import { Ship } from "./shipFactory";
 
 function GameController(humanName, computerName = 'Lil CPU') {
     let human = Player(humanName);
@@ -8,6 +9,8 @@ function GameController(humanName, computerName = 'Lil CPU') {
 
     let currentPlayer = players[0];
     let opponent = players[1];
+
+    
     
     const playRound = (y, x) => {
         // Check if player is human and call correct method on computer
@@ -18,8 +21,6 @@ function GameController(humanName, computerName = 'Lil CPU') {
         // If computer then call computerAttack on human
         } else {
             console.log('This is human board when current player is computer', getHumanBoard())
-        //     console.log('This is the computer', computer);
-        //     console.log('This is the opponent', opponent);
             currentPlayer.computerAttack(opponent);
         }
         switchPlayerTurn();
@@ -33,6 +34,24 @@ function GameController(humanName, computerName = 'Lil CPU') {
             currentPlayer = players[0];
             opponent = players[1];
         }
+    }
+
+    const placeShipsOnBothBoards = () => {
+        let humanShip1 = Ship(5);
+        let humanShip2 = Ship(4);
+        let humanShip3 = Ship(3);
+
+        let cpuShip1 = Ship(5);
+        let cpuShip2 = Ship(4);
+        let cpuShip3 = Ship(3);
+
+        human.placePlayerShip(humanShip1, 1, 1, true);
+        human.placePlayerShip(humanShip2, 3, 3, true);
+        human.placePlayerShip(humanShip3, 5, 5, false);
+
+        computer.placePlayerShip(cpuShip1, 0, 0, true);
+        computer.placePlayerShip(cpuShip2, 1, 3, true);
+        computer.placePlayerShip(cpuShip3, 4, 4, false);
     }
 
     const printRoundInfo = () => {
@@ -54,6 +73,8 @@ function GameController(humanName, computerName = 'Lil CPU') {
     const getComputerBoard = () => {
         return computer.playerBoard.board;
     }
+
+    placeShipsOnBothBoards();
 
     return {
         getCurrentPlayer, 

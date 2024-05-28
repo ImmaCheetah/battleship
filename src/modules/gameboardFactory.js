@@ -106,6 +106,9 @@ function Gameboard() {
         allShipsSunk, 
         get missedHits() {
             return missedHits;
+        },
+        get placedShips() {
+            return placedShips;
         }
     }
 }
