@@ -10,8 +10,6 @@ function GameController(humanName, computerName = 'Lil CPU') {
     let currentPlayer = players[0];
     let opponent = players[1];
 
-    
-    
     const playRound = (y, x) => {
         // Check if player is human and call correct method on computer
         printRoundInfo();
