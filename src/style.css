@@ -30,3 +30,7 @@
 .ship {
   background-color: greenyellow;
 }
+
+.no-click {
+  pointer-events: none;
+}

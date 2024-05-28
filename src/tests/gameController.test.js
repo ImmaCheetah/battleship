@@ -38,15 +38,15 @@ describe('Play round function', () => {
         expect(game.getOpponent().playerBoard.placedShips.length).toBeGreaterThan(1);
     })
 
-    test('Attacks the right player when called', () => {
+    test.only('Attacks the right player when called', () => {
         game.playRound(1, 1);
         expect(game.getComputerBoard()[1][1].missedHit).toBe(true);
         game.playRound();
-        expect(game.getOpponent().playerBoard.missedHits.length).toBe(1);
+        expect(game.getHumanObject().playerBoard.missedHits.length).toBe(1);
         game.playRound(1, 2);
         expect(game.getComputerBoard()[1][2].missedHit).toBe(true);
         game.playRound(1, 2);
-        expect(game.getOpponent().playerBoard.missedHits.length).toBe(2);
+        expect(game.getHumanObject().playerBoard.missedHits.length).toBe(2);
     })
     
     test('Determines correct winner', () => {

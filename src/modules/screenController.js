@@ -3,7 +3,6 @@ import { Player, Computer } from "./playerFactory";
 
 
 export default function ScreenController() {
-    // let game = GameController('Dave');
     const startBtn = document.querySelector('.start-btn');
 
     let placeHolder = Player();
@@ -16,12 +15,6 @@ export default function ScreenController() {
 
         return playerNameInput.value;
     }
-
-    // function initializeGame(playerName) {
-    //     let game = GameController(playerName);
-
-    //     return game;
-    // }
 
     function renderBoard(object, div) {
         const boardDiv = document.querySelector(`.${div}-board`);
@@ -64,20 +57,64 @@ export default function ScreenController() {
 
         allCells.forEach((element) => {
             element.addEventListener('click', (e) => {
-                console.log('yo');
+                console.log(e.target.dataset.coords);
+                
+
+
+                let splitCoords = e.target.dataset.coords.split(',');
+                let y = splitCoords[0];
+                let x = splitCoords[1];
+
+                // console.log(game.getCurrentPlayer());
+                
+                game.playRound(y, x);
+                disableBoard()
             })
         })
     }
 
+    function disableBoard() {
+        const humanBoard = document.querySelector('.human-board');
+        const computerBoard = document.querySelector('.computer-board');
 
+        if (game.getCurrentPlayer().playerName === "Dave") {
+            humanBoard.classList.add('no-click');
+            computerBoard.classList.remove('no-click');
+        } else {
+            humanBoard.classList.remove('no-click');
+            computerBoard.classList.add('no-click');
+        }
+    }
+    let game = GameController('Dave');
+    // const humanBoard = document.querySelector('.human-board');
+    // const computerBoard = document.querySelector('.computer-board');
+
+    // function addEventListenerToBoards(e) {
+    //     const selectedSquare = e.target.dataset.coords.split(',');
+
+    //     if (!selectedSquare) return;
+    //     console.log(selectedSquare[0], selectedSquare[1]);
+    //     game.playRound(selectedSquare[0], selectedSquare[1]);
+    //     clearBoards();
+    //     renderBoard(game.getHumanObject(), 'human');
+    //     renderBoard(game.getComputerObject(), 'computer');
+    // }
+
+    // humanBoard.addEventListener('click', addEventListenerToBoards);
+    // computerBoard.addEventListener('click', addEventListenerToBoards);
+    disableBoard()
     startBtn.addEventListener('click', () => {
-        let game = GameController(getPlayerName());
 
         clearBoards();
-        displayNames(game.getCurrentPlayer(), game.getOpponent());
-        renderBoard(game.getCurrentPlayer(), 'human');
-        renderBoard(game.getOpponent(), 'computer');
+        displayNames(game.getHumanObject(), game.getComputerObject());
+        renderBoard(game.getHumanObject(), 'human');
+        renderBoard(game.getComputerObject(), 'computer');
         makeCellsClickable();
+        // disableBoard()
     })
 }
 
+// game is created
+// event listener is added to each board
+// checks where on teh board was clicked using coordinates
+// uses object to call attack method

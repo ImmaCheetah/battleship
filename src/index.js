@@ -1,6 +1,4 @@
 import "./style.css";
-import setupGame from "./modules/gameSetup";
-import playGame from "./modules/gameRound";
 import { Player, Computer } from "./modules/playerFactory";
 import { GameController } from "./modules/gameController";
 import ScreenController from "./modules/screenController";
