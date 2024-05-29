@@ -32,6 +32,14 @@ export default function ScreenController() {
                     gridCell.classList.add('ship');
                 }
 
+                if (item.missedHit == true) {
+                    gridCell.classList.add('missed');
+                }
+
+                if (item.beenHit == true) {
+                    gridCell.classList.add('hit');
+                }
+
             })
         })
     }
@@ -59,15 +67,15 @@ export default function ScreenController() {
             element.addEventListener('click', (e) => {
                 console.log(e.target.dataset.coords);
                 
-
-
                 let splitCoords = e.target.dataset.coords.split(',');
                 let y = splitCoords[0];
                 let x = splitCoords[1];
 
                 // console.log(game.getCurrentPlayer());
-                
+                clearBoards();
                 game.playRound(y, x);
+                renderBoard(game.getHumanObject(), 'human');
+                renderBoard(game.getComputerObject(), 'computer');
                 disableBoard()
             })
         })
@@ -86,22 +94,6 @@ export default function ScreenController() {
         }
     }
     let game = GameController('Dave');
-    // const humanBoard = document.querySelector('.human-board');
-    // const computerBoard = document.querySelector('.computer-board');
-
-    // function addEventListenerToBoards(e) {
-    //     const selectedSquare = e.target.dataset.coords.split(',');
-
-    //     if (!selectedSquare) return;
-    //     console.log(selectedSquare[0], selectedSquare[1]);
-    //     game.playRound(selectedSquare[0], selectedSquare[1]);
-    //     clearBoards();
-    //     renderBoard(game.getHumanObject(), 'human');
-    //     renderBoard(game.getComputerObject(), 'computer');
-    // }
-
-    // humanBoard.addEventListener('click', addEventListenerToBoards);
-    // computerBoard.addEventListener('click', addEventListenerToBoards);
     disableBoard()
     startBtn.addEventListener('click', () => {
 
@@ -110,7 +102,6 @@ export default function ScreenController() {
         renderBoard(game.getHumanObject(), 'human');
         renderBoard(game.getComputerObject(), 'computer');
         makeCellsClickable();
-        // disableBoard()
     })
 }
 

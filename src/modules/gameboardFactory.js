@@ -38,7 +38,8 @@ function Gameboard() {
         let targetCell = board[y][x];
         
         if (targetCell.beenHit === true || targetCell.missedHit === true) {
-            throw ('Been hit already');
+            // throw ('Been hit already');
+            return;
         }
 
         if (targetCell.ship != null) {

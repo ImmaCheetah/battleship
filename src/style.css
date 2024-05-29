@@ -34,3 +34,11 @@
 .no-click {
   pointer-events: none;
 }
+
+.missed {
+  background-color: rgb(83, 83, 83);
+}
+
+.hit {
+  background-color: rgb(221, 57, 57);
+}
