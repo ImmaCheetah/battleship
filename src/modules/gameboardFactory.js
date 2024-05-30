@@ -21,7 +21,7 @@ function Gameboard() {
         
         placedShips.push(ship);
 
-        for (let i = 0; i < ship.length; i++) {
+        for (let i = 0; i < ship.shipLength; i++) {
             // If there is layout it will be horizontal else it will be vertical
             if (layout) {
                 board[y][x].ship = ship;
@@ -87,7 +87,7 @@ function Gameboard() {
     }
 
     const isOutOfBounds = (ship, y, x) => {
-        let shipLength = ship.length;
+        let shipLength = ship.shipLength;
 
         let maxY = y + shipLength;
         let maxX = x + shipLength;
@@ -105,7 +105,7 @@ function Gameboard() {
             throw ('A ship exists in that location');
         }
 
-        for (let i = 0; i < ship.length; i++) {
+        for (let i = 0; i < ship.shipLength; i++) {
             if (board[y][x].ship != null) {
                 throw ('A ship exists in that location');
             }

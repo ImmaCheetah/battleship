@@ -111,7 +111,7 @@ function GameController(humanName, computerName = 'Lil CPU') {
         return computer.playerBoard.board;
     }
 
-    placeShipsOnBothBoards();
+    // placeShipsOnBothBoards();
 
     return {
         getCurrentPlayer, 

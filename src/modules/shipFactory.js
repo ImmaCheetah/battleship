@@ -1,25 +1,25 @@
-function Ship(length, hits = 0) {
-    if (!length) throw ('Missing argument for ship');
+function Ship(shipLength, hits = 0) {
+    if (!shipLength) throw ('Missing argument for ship');
 
     const hit = () => {
         hits += 1;
     }
     
     const isSunk = () => {
-        if (length === hits) {
+        if (shipLength === hits) {
             return true;
         }
         return false
     }
     
     const assignName = () => {
-        if (length === 2) {
+        if (shipLength === 2) {
             return 'Cruiser';
-        } else if (length === 3) {
+        } else if (shipLength === 3) {
             return 'Submarine'
-        } else if (length === 4) {
+        } else if (shipLength === 4) {
             return 'Battleship';
-        } else if (length === 5) {
+        } else if (shipLength === 5) {
             return 'Carrier';
         }
     }
@@ -29,8 +29,8 @@ function Ship(length, hits = 0) {
         get name() {
             return name;
         }, 
-        get length() {
-            return length;
+        get shipLength() {
+            return shipLength;
         }, 
         get hits() {
             return hits;

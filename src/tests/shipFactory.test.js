@@ -9,7 +9,7 @@ test('Throws error if missing an argument', () => {
 })
 
 test('Returns the length of ship', () => {
-    expect(Ship(4).length).toEqual(4);
+    expect(Ship(4).shipLength).toEqual(4);
 })
 
 test('Returns correct name based on ship length', () => {

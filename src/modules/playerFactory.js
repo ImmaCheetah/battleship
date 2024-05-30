@@ -7,8 +7,8 @@ function Player(playerName) {
         playerBoard.placeShip(ship, y, x, layout);
     }
 
-    const placePlayerShipRandomly = () => {
-        playerBoard.placeShipRandomly();
+    const placePlayerShipRandomly = (ship) => {
+        playerBoard.placeShipRandomly(ship);
     }
 
     const receivePlayerAttack = (y, x) => {
