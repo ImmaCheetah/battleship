@@ -3,16 +3,18 @@ function Gameboard() {
     let placedShips = [];
     let missedHits = [];
     // Create 10x10 array
-    for (let i = 0; i < 10; i++) {
-      board[i] = [];
-      for (let j = 0; j < 10; j++) {
-        board[i][j] = 
-        {
-            ship: null,
-            beenHit: false,
-            missedHit: false
-        };
-      }
+    const generateBoard = () => {
+        for (let i = 0; i < 10; i++) {
+          board[i] = [];
+          for (let j = 0; j < 10; j++) {
+            board[i][j] = 
+            {
+                ship: null,
+                beenHit: false,
+                missedHit: false
+            };
+          }
+        }
     }
 
     const placeShip = (ship, y, x, layout) => {
@@ -123,6 +125,8 @@ function Gameboard() {
             return false;
         }
     }
+
+    generateBoard();
     
     return {
         get board() {
@@ -134,6 +138,7 @@ function Gameboard() {
         hasOverlap, 
         allShipsSunk, 
         isBoardEmpty,
+        generateBoard,
         get missedHits() {
             return missedHits;
         },

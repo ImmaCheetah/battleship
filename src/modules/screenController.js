@@ -51,6 +51,7 @@ export default function ScreenController() {
 
         humanBoard.textContent = '';
         computerBoard.textContent = '';
+        game.replaceBoards(); 
     }
 
     function displayNames(humanObj, computerObj) {

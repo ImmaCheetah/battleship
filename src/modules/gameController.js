@@ -81,6 +81,11 @@ function GameController(humanName, computerName = 'Lil CPU') {
         console.log(`It's ${getCurrentPlayer().playerName}'s turn`)
     }
 
+    const replaceBoards = () => {
+        human.playerBoard.generateBoard();
+        computer.playerBoard.generateBoard();
+    }
+
     const getCurrentPlayer = () => {
         return currentPlayer;
     }
@@ -116,7 +121,8 @@ function GameController(humanName, computerName = 'Lil CPU') {
         switchPlayerTurn,
         printRoundInfo,
         checkForWinner,
-        placeShipsRandomly
+        placeShipsRandomly,
+        replaceBoards
     }
 }
 
