@@ -61,11 +61,11 @@ function GameController(humanName, computerName = 'Lil CPU') {
         let battleship = Ship(4);
         let carrier = Ship(5);
 
-        human.placePlayerShip(cruiser, randomNum(), randomNum(), true);
-        human.placePlayerShip(sub, randomNum(), randomNum(), true);
-        human.placePlayerShip(destroyer, randomNum(), randomNum(), false);
-        human.placePlayerShip(battleship, randomNum(), randomNum(), true);
-        human.placePlayerShip(carrier, randomNum(), randomNum(), false);
+        human.placePlayerShipRandomly(cruiser);
+        // human.placePlayerShip(sub, randomNum(), randomNum(), true);
+        // human.placePlayerShip(destroyer, randomNum(), randomNum(), false);
+        // human.placePlayerShip(battleship, randomNum(), randomNum(), true);
+        // human.placePlayerShip(carrier, randomNum(), randomNum(), false);
     }
 
     // Return random number between 0 and 9
@@ -111,7 +111,7 @@ function GameController(humanName, computerName = 'Lil CPU') {
         return computer.playerBoard.board;
     }
 
-    // placeShipsOnBothBoards();
+    placeShipsOnBothBoards();
 
     return {
         getCurrentPlayer, 

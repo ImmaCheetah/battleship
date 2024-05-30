@@ -16,7 +16,7 @@ function Gameboard() {
     }
 
     const placeShip = (ship, y, x, layout) => {
-        checkOutOfBounds(ship, y, x);
+        isOutOfBounds(ship, y, x);
         checkOverlap(ship, y, x, layout);
         
         placedShips.push(ship);
@@ -34,12 +34,30 @@ function Gameboard() {
         return board;  
     }
 
+    const placeShipRandomly = (ship) => {
+        let randomX = randomNum();
+        let randomY = randomNum();
+        let randomBoolVal = randomBool();
+        console.log(randomY, randomX);
+        if (isOutOfBounds(ship, randomY, randomX)) {
+            placeShipRandomly(ship);
+        } else {
+            placeShip(ship, randomY, randomX, randomBoolVal);
+        }
+    }
+
+    const  randomNum = () => {
+        return Math.floor(Math.random() * (9 - 0 + 1) + 0);
+    }
+
+    const randomBool = () => Math.random() >= 0.5;
+
     const receiveAttack = (y, x) => {
         let targetCell = board[y][x];
         
         if (targetCell.beenHit === true || targetCell.missedHit === true) {
-            // throw ('Been hit already');
-            console.log('been hit already');
+            throw ('Been hit already');
+            // console.log('been hit already');
             // return;
         }
 
@@ -68,16 +86,16 @@ function Gameboard() {
 
     }
 
-    const checkOutOfBounds = (ship, y, x) => {
+    const isOutOfBounds = (ship, y, x) => {
         let shipLength = ship.length;
 
         let maxY = y + shipLength;
         let maxX = x + shipLength;
 
         if (y < 0 || x < 0 || maxY > 9 || maxX > 9) {
-            throw ('Ship is out of bounds');
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 
@@ -103,7 +121,8 @@ function Gameboard() {
         get board() {
             return board;
         }, 
-        placeShip, 
+        placeShip,
+        placeShipRandomly, 
         receiveAttack, 
         allShipsSunk, 
         get missedHits() {

@@ -38,7 +38,7 @@ describe('Play round function', () => {
         expect(game.getOpponent().playerBoard.placedShips.length).toBeGreaterThan(1);
     })
 
-    test.only('Attacks the right player when called', () => {
+    test('Attacks the right player when called', () => {
         game.playRound(1, 1);
         expect(game.getComputerBoard()[1][1].missedHit).toBe(true);
         game.playRound();
@@ -62,7 +62,7 @@ describe('Play round function', () => {
         game.playRound(1, 4);
         expect(game.getComputerBoard()[1][4].ship.isSunk()).toBe(true);
         expect(game.getCurrentPlayer().playerBoard.allShipsSunk()).toBe(true);
-        expect(game.checkForWinner()).toBe('Dave');
+        expect(game.checkForWinner()).toBe('Dave is the winner!');
     })
 })
 

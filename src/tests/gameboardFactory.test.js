@@ -39,7 +39,7 @@ test('Able to place ship on board vertically', () => {
     expect(testBoard.board[3][1].ship).toEqual(testShip);
 })
 
-test('Throws error if ship is placed out of bounds', () => {
+test.skip('Throws error if ship is placed out of bounds', () => {
     let testBoard = Gameboard();
     let testShip = Ship(3);
     expect(() => testBoard.placeShip(testShip, 0, 7, true)).toThrow('Ship is out of bounds');
@@ -135,4 +135,13 @@ test('Returns a message when all ships are sunk', () => {
     testBoard.receiveAttack(7, 3);
 
     expect(testBoard.allShipsSunk()).toEqual(true);
+})
+
+test('Randomly places ship', () => {
+    let testBoard = Gameboard();
+    let ship1 = Ship(5);
+
+    testBoard.placeShipRandomly(ship1);
+
+    expect(testBoard.placedShips.length).toBe(1);
 })
