@@ -11,6 +11,10 @@ function GameController(humanName, computerName = 'Lil CPU') {
     let opponent = players[1];
     
     const playRound = (y, x) => {
+        if (human.playerBoard.isBoardEmpty()) {
+            console.log('board is empty');
+            return;
+        }
         // Check if player is human and call correct method on computer
         if (getCurrentPlayer() == players[0]) {
             opponent.receivePlayerAttack(y, x);
@@ -37,23 +41,29 @@ function GameController(humanName, computerName = 'Lil CPU') {
     }
 
     const placeShipsRandomly = () => {
-        let cruiser = Ship(2);
-        let sub = Ship(3);
-        let destroyer = Ship(3);
-        let battleship = Ship(4);
-        let carrier = Ship(5);
+        let humanCruiser = Ship(2);
+        let humanSub = Ship(3);
+        let humanDestroyer = Ship(3);
+        let humanBattleship = Ship(4);
+        let humanCarrier = Ship(5);
 
-        human.placePlayerShipRandomly(cruiser);
-        human.placePlayerShipRandomly(sub);
-        human.placePlayerShipRandomly(destroyer);
-        human.placePlayerShipRandomly(battleship);
-        human.placePlayerShipRandomly(carrier);
+        let computerCruiser = Ship(2);
+        let computerSub = Ship(3);
+        let computerDestroyer = Ship(3);
+        let computerBattleship = Ship(4);
+        let computerCarrier = Ship(5);
 
-        computer.placePlayerShipRandomly(cruiser);
-        computer.placePlayerShipRandomly(sub);
-        computer.placePlayerShipRandomly(destroyer);
-        computer.placePlayerShipRandomly(battleship);
-        computer.placePlayerShipRandomly(carrier);
+        human.placePlayerShipRandomly(humanCruiser);
+        human.placePlayerShipRandomly(humanSub);
+        human.placePlayerShipRandomly(humanDestroyer);
+        human.placePlayerShipRandomly(humanBattleship);
+        human.placePlayerShipRandomly(humanCarrier);
+
+        computer.placePlayerShipRandomly(computerCruiser);
+        computer.placePlayerShipRandomly(computerSub);
+        computer.placePlayerShipRandomly(computerDestroyer);
+        computer.placePlayerShipRandomly(computerBattleship);
+        computer.placePlayerShipRandomly(computerCarrier);
 
     }
 
@@ -94,8 +104,6 @@ function GameController(humanName, computerName = 'Lil CPU') {
     const getComputerBoard = () => {
         return computer.playerBoard.board;
     }
-
-    // placeShipsOnBothBoards();
 
     return {
         getCurrentPlayer, 

@@ -47,13 +47,15 @@ test.skip('Throws error if ship is placed out of bounds', () => {
     expect(() => testBoard.placeShip(testShip, 8, 8, false)).toThrow('Ship is out of bounds');
 })
 
-test('Throws error if ship is being placed on another ship', () => {
+test('Returns true if ship is being placed on another ship', () => {
     let testBoard = Gameboard();
     let testShip = Ship(3);
     testBoard.placeShip(testShip, 2, 2, true);
-    expect(() => testBoard.placeShip(testShip, 2, 0, true)).toThrow('A ship exists in that location')
-    expect(() => testBoard.placeShip(testShip, 0, 2, false)).toThrow('A ship exists in that location')
-    expect(() => testBoard.placeShip(testShip, 0, 4, false)).toThrow('A ship exists in that location')
+
+    testBoard.placeShip(testShip, 2, 0, true);
+
+    expect(testBoard.hasOverlap(testShip, 2, 0, true)).toBe(true)
+    expect(testBoard.hasOverlap(testShip, 0, 2, false)).toBe(true)
 })
 
 test('Attack returns true when ship is hit and correct hit amount', () => {
@@ -137,7 +139,7 @@ test('Returns a message when all ships are sunk', () => {
     expect(testBoard.allShipsSunk()).toEqual(true);
 })
 
-test.only('Randomly places ships without overlap', () => {
+test('Randomly places ships without overlap', () => {
     let testBoard = Gameboard();
     let ship1 = Ship(5);
     let ship2 = Ship(3);
@@ -145,6 +147,6 @@ test.only('Randomly places ships without overlap', () => {
     testBoard.placeShipRandomly(ship1);
     expect(testBoard.placedShips.length).toBe(1);
 
-    // testBoard.placeShipRandomly(ship2);
-    // expect(testBoard.placedShips.length).toBe(2);
+    testBoard.placeShipRandomly(ship2);
+    expect(testBoard.placedShips.length).toBe(2);
 })

@@ -26,7 +26,7 @@ test('Able to place a ship using player', () => {
     expect(testPlayer.playerBoard.board[1][3].ship).toEqual(testShip);
 })
 
-test.only('Able to place ship randomly using player', () => {
+test('Able to place ship randomly using player', () => {
     let testPlayer = Player();
     let testShip = Ship(3);
 

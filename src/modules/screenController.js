@@ -4,6 +4,7 @@ import { Player, Computer } from "./playerFactory";
 
 export default function ScreenController() {
     const startBtn = document.querySelector('.start-btn');
+    const randomizeBtn = document.querySelector('.randomize-btn');
 
     let placeHolder = Player();
 
@@ -72,7 +73,6 @@ export default function ScreenController() {
 
         winnerDiv.textContent = game.checkForWinner();
 
-
     }
 
     function makeCellsClickable() {
@@ -92,6 +92,7 @@ export default function ScreenController() {
                 // setTimeout(() => {
                 //     game.playRound();
                 //     console.log('timeout call');
+                //     renderBoard(game.getHumanObject(), 'human');
                 // }, 1000);
                 renderBoard(game.getHumanObject(), 'human');
                 renderBoard(game.getComputerObject(), 'computer');
@@ -120,17 +121,18 @@ export default function ScreenController() {
     
     startBtn.addEventListener('click', () => {
 
-        clearBoards();
-        game.placeShipsRandomly();
+        
+        
         displayNames(game.getHumanObject(), game.getComputerObject());
-        renderBoard(game.getHumanObject(), 'human');
-        renderBoard(game.getComputerObject(), 'computer');
+        
         makeCellsClickable();
         displayTurn();
     })
-}
 
-// game is created
-// event listener is added to each board
-// checks where on teh board was clicked using coordinates
-// uses object to call attack method
+    randomizeBtn.addEventListener('click', () => {
+        clearBoards();
+        game.placeShipsRandomly();
+        renderBoard(game.getHumanObject(), 'human');
+        renderBoard(game.getComputerObject(), 'computer');
+    })
+}

@@ -115,6 +115,14 @@ function Gameboard() {
             }
         }
     }
+
+    const isBoardEmpty = () => {
+        if (placedShips.length == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
     return {
         get board() {
@@ -122,8 +130,10 @@ function Gameboard() {
         }, 
         placeShip,
         placeShipRandomly, 
-        receiveAttack, 
+        receiveAttack,
+        hasOverlap, 
         allShipsSunk, 
+        isBoardEmpty,
         get missedHits() {
             return missedHits;
         },
