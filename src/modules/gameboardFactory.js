@@ -17,7 +17,7 @@ function Gameboard() {
 
     const placeShip = (ship, y, x, layout) => {
         isOutOfBounds(ship, y, x);
-        checkOverlap(ship, y, x, layout);
+        hasOverlap(ship, y, x, layout);
         
         placedShips.push(ship);
 
@@ -38,8 +38,8 @@ function Gameboard() {
         let randomX = randomNum();
         let randomY = randomNum();
         let randomBoolVal = randomBool();
-        console.log(randomY, randomX);
-        if (isOutOfBounds(ship, randomY, randomX)) {
+
+        if (isOutOfBounds(ship, randomY, randomX) || hasOverlap(ship, randomY, randomX, randomBoolVal)) {
             placeShipRandomly(ship);
         } else {
             placeShip(ship, randomY, randomX, randomBoolVal);
@@ -99,15 +99,14 @@ function Gameboard() {
         }
     }
 
-    const checkOverlap = (ship, y, x, layout) => {
-
+    const hasOverlap = (shipObj, y, x, layout) => {
         if (board[y][x].ship != null) {
-            throw ('A ship exists in that location');
+            return true;
         }
 
-        for (let i = 0; i < ship.shipLength; i++) {
+        for (let i = 0; i < shipObj.shipLength; i++) {
             if (board[y][x].ship != null) {
-                throw ('A ship exists in that location');
+                return true;
             }
             if (layout) {
                 x += 1;

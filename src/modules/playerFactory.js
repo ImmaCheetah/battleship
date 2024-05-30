@@ -33,7 +33,7 @@ function Player(playerName) {
 
 function Computer(playerName = 'Lil CPU') {
     const computer = Player(playerName);
-    const {playerBoard, placePlayerShip, receivePlayerAttack} = computer;
+    const {playerBoard, placePlayerShip, placePlayerShipRandomly, receivePlayerAttack} = computer;
 
     // Randomly choose one spot
     // Use that to attack the player
@@ -82,6 +82,7 @@ function Computer(playerName = 'Lil CPU') {
         },
         playerBoard,
         placePlayerShip, 
+        placePlayerShipRandomly,
         receivePlayerAttack, 
         computerAttack
     }

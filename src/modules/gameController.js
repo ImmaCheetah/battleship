@@ -36,24 +36,6 @@ function GameController(humanName, computerName = 'Lil CPU') {
         }
     }
 
-    const placeShipsOnBothBoards = () => {
-        let humanShip1 = Ship(3);
-        let humanShip2 = Ship(2);
-        let humanShip3 = Ship(3);
-
-        let cpuShip1 = Ship(3);
-        let cpuShip2 = Ship(2);
-        let cpuShip3 = Ship(3);
-
-        human.placePlayerShip(humanShip1, 1, 1, true);
-        human.placePlayerShip(humanShip2, 3, 3, true);
-        // human.placePlayerShip(humanShip3, 5, 5, false);
-
-        computer.placePlayerShip(cpuShip1, 0, 0, true);
-        computer.placePlayerShip(cpuShip2, 1, 3, true);
-        // computer.placePlayerShip(cpuShip3, 4, 4, false);
-    }
-
     const placeShipsRandomly = () => {
         let cruiser = Ship(2);
         let sub = Ship(3);
@@ -62,15 +44,17 @@ function GameController(humanName, computerName = 'Lil CPU') {
         let carrier = Ship(5);
 
         human.placePlayerShipRandomly(cruiser);
-        // human.placePlayerShip(sub, randomNum(), randomNum(), true);
-        // human.placePlayerShip(destroyer, randomNum(), randomNum(), false);
-        // human.placePlayerShip(battleship, randomNum(), randomNum(), true);
-        // human.placePlayerShip(carrier, randomNum(), randomNum(), false);
-    }
+        human.placePlayerShipRandomly(sub);
+        human.placePlayerShipRandomly(destroyer);
+        human.placePlayerShipRandomly(battleship);
+        human.placePlayerShipRandomly(carrier);
 
-    // Return random number between 0 and 9
-    const  randomNum = () => {
-        return Math.floor(Math.random() * (9 - 0 + 1) + 0);
+        computer.placePlayerShipRandomly(cruiser);
+        computer.placePlayerShipRandomly(sub);
+        computer.placePlayerShipRandomly(destroyer);
+        computer.placePlayerShipRandomly(battleship);
+        computer.placePlayerShipRandomly(carrier);
+
     }
 
     const checkForWinner = () => {

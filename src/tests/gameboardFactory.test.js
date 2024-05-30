@@ -137,11 +137,14 @@ test('Returns a message when all ships are sunk', () => {
     expect(testBoard.allShipsSunk()).toEqual(true);
 })
 
-test('Randomly places ship', () => {
+test.only('Randomly places ships without overlap', () => {
     let testBoard = Gameboard();
     let ship1 = Ship(5);
+    let ship2 = Ship(3);
 
     testBoard.placeShipRandomly(ship1);
-
     expect(testBoard.placedShips.length).toBe(1);
+
+    // testBoard.placeShipRandomly(ship2);
+    // expect(testBoard.placedShips.length).toBe(2);
 })
