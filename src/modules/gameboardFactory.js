@@ -39,7 +39,8 @@ function Gameboard() {
         
         if (targetCell.beenHit === true || targetCell.missedHit === true) {
             // throw ('Been hit already');
-            return;
+            console.log('been hit already');
+            // return;
         }
 
         if (targetCell.ship != null) {

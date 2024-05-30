@@ -15,11 +15,10 @@ function GameController(humanName, computerName = 'Lil CPU') {
         if (getCurrentPlayer() == players[0]) {
             opponent.receivePlayerAttack(y, x);
             console.log('This is computer board when current player is human', getComputerBoard())
-            // console.log('Human attacked and this is the computers hit spot', getComputerBoard()[y][x])
+
             // If computer then call computerAttack on human
         } else {
             console.log('This is human board when current player is computer', getHumanBoard())
-            // console.log('Computer attacked and this is the humans hit spot', getHumanBoard()[y][x])
             currentPlayer.computerAttack(opponent);
         }
         console.log(checkForWinner())
@@ -53,6 +52,25 @@ function GameController(humanName, computerName = 'Lil CPU') {
         computer.placePlayerShip(cpuShip1, 0, 0, true);
         computer.placePlayerShip(cpuShip2, 1, 3, true);
         // computer.placePlayerShip(cpuShip3, 4, 4, false);
+    }
+
+    const placeShipsRandomly = () => {
+        let cruiser = Ship(2);
+        let sub = Ship(3);
+        let destroyer = Ship(3);
+        let battleship = Ship(4);
+        let carrier = Ship(5);
+
+        human.placePlayerShip(cruiser, randomNum(), randomNum(), true);
+        human.placePlayerShip(sub, randomNum(), randomNum(), true);
+        human.placePlayerShip(destroyer, randomNum(), randomNum(), false);
+        human.placePlayerShip(battleship, randomNum(), randomNum(), true);
+        human.placePlayerShip(carrier, randomNum(), randomNum(), false);
+    }
+
+    // Return random number between 0 and 9
+    const  randomNum = () => {
+        return Math.floor(Math.random() * (9 - 0 + 1) + 0);
     }
 
     const checkForWinner = () => {
@@ -93,7 +111,7 @@ function GameController(humanName, computerName = 'Lil CPU') {
         return computer.playerBoard.board;
     }
 
-    placeShipsOnBothBoards();
+    // placeShipsOnBothBoards();
 
     return {
         getCurrentPlayer, 
@@ -105,7 +123,8 @@ function GameController(humanName, computerName = 'Lil CPU') {
         getHumanObject,
         switchPlayerTurn,
         printRoundInfo,
-        checkForWinner
+        checkForWinner,
+        placeShipsRandomly
     }
 }
 

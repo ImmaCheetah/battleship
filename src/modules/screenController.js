@@ -60,9 +60,23 @@ export default function ScreenController() {
         computerNameDiv.textContent = computerObj.playerName;
     }
 
+    function displayTurn() {
+        const playerTurn = document.querySelector('.player-turn');
+        playerTurn.textContent = `${game.getCurrentPlayer().playerName}'s turn`;
+    }
+
+    function displayWinnerAndEndGame() {
+        const winnerDiv = document.querySelector('.winner-div');
+        const humanBoard = document.querySelector('.human-board');
+        const computerBoard = document.querySelector('.computer-board');
+
+        winnerDiv.textContent = game.checkForWinner();
+
+
+    }
+
     function makeCellsClickable() {
         const allCells = document.querySelectorAll('.grid-cell');
-
         allCells.forEach((element) => {
             element.addEventListener('click', (e) => {
                 console.log(e.target.dataset.coords);
@@ -74,14 +88,22 @@ export default function ScreenController() {
                 // console.log(game.getCurrentPlayer());
                 clearBoards();
                 game.playRound(y, x);
+                game.playRound();
+                // setTimeout(() => {
+                //     game.playRound();
+                //     console.log('timeout call');
+                // }, 1000);
                 renderBoard(game.getHumanObject(), 'human');
                 renderBoard(game.getComputerObject(), 'computer');
-                disableBoard()
+                displayTurn();
+                displayWinnerAndEndGame();
+                makeCellsClickable();
+                alternateDisableBoard();
             })
         })
     }
 
-    function disableBoard() {
+    function alternateDisableBoard() {
         const humanBoard = document.querySelector('.human-board');
         const computerBoard = document.querySelector('.computer-board');
 
@@ -94,14 +116,17 @@ export default function ScreenController() {
         }
     }
     let game = GameController('Dave');
-    disableBoard()
+    alternateDisableBoard();
+    
     startBtn.addEventListener('click', () => {
 
         clearBoards();
+        game.placeShipsRandomly();
         displayNames(game.getHumanObject(), game.getComputerObject());
         renderBoard(game.getHumanObject(), 'human');
         renderBoard(game.getComputerObject(), 'computer');
         makeCellsClickable();
+        displayTurn();
     })
 }
 
