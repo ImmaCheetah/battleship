@@ -28,6 +28,7 @@ function GameController(humanName, computerName = 'Lil CPU') {
         console.log(checkForWinner())
         switchPlayerTurn();
         printRoundInfo();
+        console.log(`computer placed ships - ${getComputerObject().playerBoard.placedShips.length}`)
     }
 
     const switchPlayerTurn = () => {

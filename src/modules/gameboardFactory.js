@@ -4,6 +4,8 @@ function Gameboard() {
     let missedHits = [];
     // Create 10x10 array
     const generateBoard = () => {
+        placedShips = [];
+        missedHits = [];
         for (let i = 0; i < 10; i++) {
           board[i] = [];
           for (let j = 0; j < 10; j++) {
@@ -57,6 +59,7 @@ function Gameboard() {
     const receiveAttack = (y, x) => {
         let targetCell = board[y][x];
         
+        
         if (targetCell.beenHit === true || targetCell.missedHit === true) {
             throw ('Been hit already');
             // console.log('been hit already');
@@ -66,9 +69,11 @@ function Gameboard() {
         if (targetCell.ship != null) {
             targetCell.ship.hit();
             targetCell.beenHit = true;
+            console.log(`Ship at ${y}, ${x} is sunk check`, targetCell.ship.isSunk())
         } else {
             board[y][x].missedHit = true;
             missedHits.push([y,x])
+            // console.log('is sunk', targetCell.ship)
         }
     }
 

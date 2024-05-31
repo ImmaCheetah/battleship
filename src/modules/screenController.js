@@ -45,15 +45,6 @@ export default function ScreenController() {
         })
     }
 
-    function clearBoards() {
-        const humanBoard = document.querySelector('.human-board');
-        const computerBoard = document.querySelector('.computer-board');
-
-        humanBoard.textContent = '';
-        computerBoard.textContent = '';
-        game.replaceBoards(); 
-    }
-
     function displayNames(humanObj, computerObj) {
         const humanNameDiv = document.querySelector('.human-name');
         const computerNameDiv = document.querySelector('.computer-name');
@@ -80,14 +71,12 @@ export default function ScreenController() {
         const allCells = document.querySelectorAll('.grid-cell');
         allCells.forEach((element) => {
             element.addEventListener('click', (e) => {
-                console.log(e.target.dataset.coords);
                 
                 let splitCoords = e.target.dataset.coords.split(',');
                 let y = splitCoords[0];
                 let x = splitCoords[1];
 
-                // console.log(game.getCurrentPlayer());
-                clearBoards();
+                clearDOMBoards();
                 game.playRound(y, x);
                 game.playRound();
                 // setTimeout(() => {
@@ -117,21 +106,28 @@ export default function ScreenController() {
             computerBoard.classList.add('no-click');
         }
     }
+
+    function clearDOMBoards() {
+        const humanBoard = document.querySelector('.human-board');
+        const computerBoard = document.querySelector('.computer-board');
+
+        humanBoard.textContent = '';
+        computerBoard.textContent = '';
+    }
+
     let game = GameController('Dave');
     alternateDisableBoard();
     
     startBtn.addEventListener('click', () => {
-
-        
-        
         displayNames(game.getHumanObject(), game.getComputerObject());
-        
         makeCellsClickable();
         displayTurn();
     })
 
     randomizeBtn.addEventListener('click', () => {
-        clearBoards();
+        // !FIX - this causes no win condition when randomized more than once
+        game.replaceBoards(); 
+        clearDOMBoards();
         game.placeShipsRandomly();
         renderBoard(game.getHumanObject(), 'human');
         renderBoard(game.getComputerObject(), 'computer');
