@@ -15,6 +15,12 @@ function GameController(humanName, computerName = 'Lil CPU') {
             console.log('board is empty');
             return;
         }
+   
+        if (computer.playerBoard.isAlreadyHit(getComputerBoard(), y, x)) {
+            console.log('INSIDE OF ALREADY HIT CHECK');
+            return;
+        }
+
         // Check if player is human and call correct method on computer
         if (getCurrentPlayer() == players[0]) {
             opponent.receivePlayerAttack(y, x);

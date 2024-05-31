@@ -59,12 +59,9 @@ function Gameboard() {
     const receiveAttack = (y, x) => {
         let targetCell = board[y][x];
         
-        
-        if (targetCell.beenHit === true || targetCell.missedHit === true) {
-            throw ('Been hit already');
-            // console.log('been hit already');
-            // return;
-        }
+        if (isAlreadyHit(board, y, x)) {
+            throw ('Been hit already');  
+        };
 
         if (targetCell.ship != null) {
             targetCell.ship.hit();
@@ -73,7 +70,12 @@ function Gameboard() {
         } else {
             board[y][x].missedHit = true;
             missedHits.push([y,x])
-            // console.log('is sunk', targetCell.ship)
+        }
+    }
+
+    const isAlreadyHit = (board, y, x) => {
+        if (board[y][x].beenHit === true || board[y][x].missedHit === true) {
+            return true;
         }
     }
 
@@ -144,6 +146,7 @@ function Gameboard() {
         allShipsSunk, 
         isBoardEmpty,
         generateBoard,
+        isAlreadyHit,
         get missedHits() {
             return missedHits;
         },

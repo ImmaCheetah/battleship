@@ -125,7 +125,6 @@ export default function ScreenController() {
     })
 
     randomizeBtn.addEventListener('click', () => {
-        // !FIX - this causes no win condition when randomized more than once
         game.replaceBoards(); 
         clearDOMBoards();
         game.placeShipsRandomly();
