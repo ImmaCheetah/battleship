@@ -1,13 +1,108 @@
-.hello {
-  color: red;
+/* CSS RESET || */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+    text-decoration: none;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
+/* VARIABLES || */
+:root {
+  --header: #383838;
+  --border-clr: #A50519;
+  --main-text-clr: rgb(255, 254, 254);
+  --bg: #a1a1a1;
+  --cells: rgb(254, 253, 253);
+  --ship: #6395d2;
+  --hit: rgb(163, 56, 56);
+  --miss: rgb(83, 83, 83);
+  --hover: rgb(174, 174, 174);
+}
+
+/* HEADER || */
+.header-div {
+  height: 80px;
+  background-color: var(--header);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: -2px 7px 34px -14px rgba(0,0,0,0.75);
+}
+
+h1 {
+  color: var(--main-text-clr);
+  font-size: 60px;
+}
+
+/* MAIN CONTAINER || */
+.container {
+  min-height: 100vh; /* FIX */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg);
+}
+
+/* NAME INPUT || */
+.player-input {
+  display: flex;
+  align-self: start;
+}
+
+input {
+  height: 30px;
+  font-size: 20px;
+  border: none;
+}
+
+/* BOARD CONTAINER || */
+
 .grid-cell {
-  width: 5px;
-  height: 5px;
+  /* width: 8px;
+  height: 8px; */
   padding: 10px;
   appearance: none;
-  border: solid 1px black;
+  border: none;
+  margin: 1px;
 }
 
 .boards-container {
@@ -17,10 +112,9 @@
 
 .human-board, .computer-board {
   display: grid;
-  grid-template-columns: repeat(10, 25px);
-  grid-template-rows: repeat(10, 25px);
-  border: 1px solid black;
-  padding: 1em;
+  grid-template-columns: repeat(10, 40px);
+  grid-template-rows: repeat(10, 40px);
+  /* padding: 1em; */
 }
 
 .name-div {
@@ -28,7 +122,8 @@
 }
 
 .ship {
-  background-color: greenyellow;
+  background-color: var(--ship);
+  border: solid 1px white;
 }
 
 .no-click {
@@ -36,9 +131,15 @@
 }
 
 .missed {
-  background-color: rgb(83, 83, 83);
+  background-color: var(--miss);
 }
 
 .hit {
-  background-color: rgb(221, 57, 57);
+  background-color: var(--hit);
+  border: solid 1px white;
+}
+
+/* EFFECTS || */
+.grid-cell:hover {
+  background-color: var(--hover);
 }

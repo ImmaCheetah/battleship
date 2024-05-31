@@ -16,10 +16,12 @@ function GameController(humanName, computerName = 'Lil CPU') {
             return;
         }
    
-        if (computer.playerBoard.isAlreadyHit(getComputerBoard(), y, x)) {
-            console.log('INSIDE OF ALREADY HIT CHECK');
-            return;
-        }
+        // if (computer.playerBoard.isAlreadyHit(getComputerBoard(), y, x)) {
+        //     console.log('INSIDE OF ALREADY HIT CHECK');
+        //     return;
+        // }
+
+        
 
         // Check if player is human and call correct method on computer
         if (getCurrentPlayer() == players[0]) {

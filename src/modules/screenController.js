@@ -2,6 +2,7 @@ import { GameController } from "./gameController";
 import { Player, Computer } from "./playerFactory";
 
 
+
 export default function ScreenController() {
     const startBtn = document.querySelector('.start-btn');
     const randomizeBtn = document.querySelector('.randomize-btn');
@@ -71,19 +72,8 @@ export default function ScreenController() {
         const allCells = document.querySelectorAll('.grid-cell');
         allCells.forEach((element) => {
             element.addEventListener('click', (e) => {
-                
-                let splitCoords = e.target.dataset.coords.split(',');
-                let y = splitCoords[0];
-                let x = splitCoords[1];
-
                 clearDOMBoards();
-                game.playRound(y, x);
-                game.playRound();
-                // setTimeout(() => {
-                //     game.playRound();
-                //     console.log('timeout call');
-                //     renderBoard(game.getHumanObject(), 'human');
-                // }, 1000);
+                playRoundsWithCheck(e);
                 renderBoard(game.getHumanObject(), 'human');
                 renderBoard(game.getComputerObject(), 'computer');
                 displayTurn();
@@ -92,6 +82,19 @@ export default function ScreenController() {
                 alternateDisableBoard();
             })
         })
+    }
+
+    function playRoundsWithCheck(e) {
+        let splitCoords = e.target.dataset.coords.split(',');
+        let y = splitCoords[0];
+        let x = splitCoords[1];
+
+        if (game.getComputerBoard()[y][x].beenHit == true || game.getComputerBoard()[y][x].missedHit === true) {
+            return;
+        }
+
+        game.playRound(y, x);
+        game.playRound();
     }
 
     function alternateDisableBoard() {
