@@ -46,7 +46,7 @@ function Computer(playerName = 'Lil CPU') {
     // Find index of that attack then delete from array
     const computerAttack = (player) => {
         let singleAttack = allAttacks[Math.floor(Math.random() * allAttacks.length)]
-
+        console.log(allAttacks);
         player.receivePlayerAttack(singleAttack[0], singleAttack[1]);
 
         let attackIndex = returnIndexOfCoord(allAttacks, singleAttack)
@@ -79,6 +79,10 @@ function Computer(playerName = 'Lil CPU') {
         return possibleAttacks;
     }
 
+    const refillAttackArray = () => {
+        allAttacks = createArrayWithAllAttacks();
+    }
+
     // Create array of attacks
     let allAttacks = createArrayWithAllAttacks();
 
@@ -90,7 +94,8 @@ function Computer(playerName = 'Lil CPU') {
         placePlayerShip, 
         placePlayerShipRandomly,
         receivePlayerAttack, 
-        computerAttack
+        computerAttack,
+        refillAttackArray
     }
 }
 

@@ -1,5 +1,5 @@
 import { GameController } from "./gameController";
-import { Player, Computer } from "./playerFactory";
+import { Player } from "./playerFactory";
 
 export default function ScreenController() {
     const startBtn = document.querySelector('.start-btn');
@@ -12,12 +12,6 @@ export default function ScreenController() {
     renderBoard(placeHolder, 'computer');
     renderBoard(placeHolder, 'human');
 
-    function getPlayerName() {
-        const playerNameInput = document.getElementById('name');
-
-        return playerNameInput.value;
-    }
-
     function renderBoard(object, div) {
         const boardDiv = document.querySelector(`.${div}-board`);
         const thisBoard = object.playerBoard.board;
@@ -27,12 +21,12 @@ export default function ScreenController() {
                 gridCell.classList.add(div, 'grid-cell');
                 gridCell.setAttribute('data-coords', [indexY, indexX])
                 boardDiv.appendChild(gridCell)
-                if (item.ship != null && div !== 'computer') {
-                    gridCell.classList.add('ship');
-                }
-                // if (item.ship != null) {
+                // if (item.ship != null && div !== 'computer') {
                 //     gridCell.classList.add('ship');
                 // }
+                if (item.ship != null) {
+                    gridCell.classList.add('ship');
+                }
 
                 if (item.missedHit == true) {
                     gridCell.classList.add('missed');
@@ -44,6 +38,12 @@ export default function ScreenController() {
 
             })
         })
+    }
+
+    function getPlayerName() {
+        const playerNameInput = document.getElementById('name');
+
+        return playerNameInput.value;
     }
 
     function displayNames(humanObj, computerObj) {
@@ -63,10 +63,15 @@ export default function ScreenController() {
     function displayWinnerAndEndGame() {
         const winnerDiv = document.querySelector('.winner-div');
 
-        if (!game.getHumanObject().playerBoard.isBoardEmpty()) {
-            winnerDiv.textContent = game.checkForWinner();
-        }
+        // if (game.getHumanObject().playerBoard.allShipsSunk() || game.getComputerObject().playerBoard.allShipsSunk()) {
+        //     winnerDiv.textContent = game.checkForWinner();
+        //     disableBoard();
+        // }
 
+        if (game.checkForWin(game.getHumanObject()) || game.checkForWin(game.getComputerObject())) {
+            winnerDiv.textContent = game.checkForWinner();
+            disableBoard();
+        }
     }
 
     function makeCellsClickable() {
@@ -79,7 +84,8 @@ export default function ScreenController() {
                 renderBoard(game.getComputerObject(), 'computer');
                 displayWinnerAndEndGame();
                 makeCellsClickable();
-                alternateDisableBoard();
+
+                // alternateDisableBoard();
             })
         })
     }
@@ -110,24 +116,41 @@ export default function ScreenController() {
         }
     }
 
+    function disableHumanBoard() {
+        const humanBoard = document.querySelector('.human-board');
+
+        humanBoard.classList.add('no-click');
+    }
+
+    function disableBoard() {
+        const computerBoard = document.querySelector('.computer-board');
+
+        computerBoard.classList.add('no-click');
+    }
+
+    function enableBoard() {
+        // const humanBoard = document.querySelector('.human-board');
+        const computerBoard = document.querySelector('.computer-board');
+
+        // humanBoard.classList.remove('no-click');
+        computerBoard.classList.remove('no-click');
+    }
+
     function clearDOMBoards() {
         const humanBoard = document.querySelector('.human-board');
         const computerBoard = document.querySelector('.computer-board');
+        const winnerDiv = document.querySelector('.winner-div');
 
         humanBoard.textContent = '';
         computerBoard.textContent = '';
+        winnerDiv.textContent = '';
     }
-
-    
-    alternateDisableBoard();
-    // alternateDisableBoard();
-    showModal(); 
 
     function showModal() {
         const nameModal = document.getElementById('name-dialog');
 
         nameModal.showModal(); 
-    }
+    }   
 
     confirmBtn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -147,7 +170,13 @@ export default function ScreenController() {
         game.replaceBoards(); 
         clearDOMBoards();
         game.placeShipsRandomly();
+        enableBoard();
         renderBoard(game.getHumanObject(), 'human');
         renderBoard(game.getComputerObject(), 'computer');
     })
+
+    // alternateDisableBoard();
+    disableHumanBoard();
+
+    showModal(); 
 }

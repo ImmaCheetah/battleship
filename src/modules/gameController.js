@@ -63,15 +63,29 @@ function GameController(humanName, computerName = 'Lil CPU') {
         computer.placePlayerShipRandomly(computerDestroyer);
         computer.placePlayerShipRandomly(computerBattleship);
         computer.placePlayerShipRandomly(computerCarrier);
+
+        restartComputerAttackArray();
+    }
+
+    const restartComputerAttackArray = () => {
+        computer.refillAttackArray()
     }
 
     const checkForWinner = () => {
-        if (getCurrentPlayer().playerBoard.allShipsSunk() == true) {
+        if (checkForWin(getCurrentPlayer())) {
             return `${getOpponent().playerName} is the winner!`;
         }
 
-        if (getOpponent().playerBoard.allShipsSunk() == true) {
+        if (checkForWin(getOpponent())) {
             return `${getCurrentPlayer().playerName} is the winner!`;
+        }
+    }
+
+    const checkForWin = (playerObj) => {
+        if (playerObj.playerBoard.allShipsSunk() === true) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -119,6 +133,7 @@ function GameController(humanName, computerName = 'Lil CPU') {
         switchPlayerTurn,
         printRoundInfo,
         checkForWinner,
+        checkForWin,
         placeShipsRandomly,
         replaceBoards
     }
