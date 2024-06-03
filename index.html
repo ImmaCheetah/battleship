@@ -4,9 +4,52 @@
     <meta charset="utf-8" />
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="index.js" defer></script>
   <script defer src="runtime.bundle.js"></script><script defer src="main.bundle.js"></script></head>
   <body>
-    <div class="container"></div>
-    hello
+    <div class="header-div">
+      <h1>BATTLESHIP</h1>
+    </div>
+    <div class="container">
+      <div class="boards-container">
+        <div class="human-board-div">
+          <div class="human-board">
+          
+          </div>
+          <div class="human-name"></div>
+        </div>
+        <div class="computer-board-div">
+          <div class="computer-board">
+          
+          </div>
+          <div class="computer-name"></div>
+        </div> 
+      </div>
+      <div class="name-div">
+        
+      </div>
+      <div class="winner-div">
+        
+      </div>
+      <div class="game-buttons">
+        <button class="randomize-btn">Randomize</button>
+        <button class="start-btn">Start</button>
+      </div>
+    </div>
+    <dialog id="name-dialog">
+      <form id="main-form" name="main-form" action="" method="POST">
+        <div class="form-header form-div">
+            <h3 class="form-title">Enter Your Name</h3>
+        </div>
+        <div id="name-div" class="form-div">
+          <label for="name"></label>
+          <input type="text" name="name" id="name" placeholder="Name" value="" required>
+          <span></span>
+      </div>
+      <div id="confirm-div" class="form-div">
+        <button id="confirm-btn" type="submit">Confirm</button>
+    </div>
+      </form>
+    </dialog>
   </body>
 </html>
