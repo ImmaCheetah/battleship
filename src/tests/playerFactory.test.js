@@ -73,4 +73,11 @@ test('Computer is able to attack board at random coordinate', () => {
     expect(testHuman.playerBoard.missedHits.length).toBe(3);
 })
 
+test('Able to change player name', () => {
+    let testHuman = Player('Tom');
+
+    testHuman.updateName('Bingo');
+    expect(testHuman.playerName).toBe('Bingo');
+})
+
 

@@ -23,6 +23,7 @@ function Ship(shipLength, hits = 0) {
             return 'Carrier';
         }
     }
+    
     let name = assignName();
 
     return {

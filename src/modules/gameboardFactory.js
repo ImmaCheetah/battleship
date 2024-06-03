@@ -2,7 +2,7 @@ function Gameboard() {
     let board = [];
     let placedShips = [];
     let missedHits = [];
-    // Create 10x10 array
+    // Create 10x10 array with object in each index
     const generateBoard = () => {
         placedShips = [];
         missedHits = [];
@@ -26,7 +26,7 @@ function Gameboard() {
         placedShips.push(ship);
 
         for (let i = 0; i < ship.shipLength; i++) {
-            // If there is layout it will be horizontal else it will be vertical
+            // If there is layout, it will be horizontal else it will be vertical
             if (layout) {
                 board[y][x].ship = ship;
                 x += 1;
@@ -38,6 +38,7 @@ function Gameboard() {
         return board;  
     }
 
+    // Checks if ship will be out of bounds or overlap and calls function again to generate new coordinates
     const placeShipRandomly = (ship) => {
         let randomX = randomNum();
         let randomY = randomNum();
@@ -56,6 +57,7 @@ function Gameboard() {
 
     const randomBool = () => Math.random() >= 0.5;
 
+
     const receiveAttack = (y, x) => {
         let targetCell = board[y][x];
         
@@ -66,7 +68,6 @@ function Gameboard() {
         if (targetCell.ship != null) {
             targetCell.ship.hit();
             targetCell.beenHit = true;
-            console.log(`Ship at ${y}, ${x} is sunk check`, targetCell.ship.isSunk())
         } else {
             board[y][x].missedHit = true;
             missedHits.push([y,x])
@@ -92,7 +93,6 @@ function Gameboard() {
         } else {
             return false;
         }
-
     }
 
     const isOutOfBounds = (ship, y, x) => {
@@ -108,6 +108,7 @@ function Gameboard() {
         }
     }
 
+    // Loop through length of ship and check board if there is a ship at that coordinate
     const hasOverlap = (shipObj, y, x, layout) => {
         if (board[y][x].ship != null) {
             return true;
@@ -136,9 +137,6 @@ function Gameboard() {
     generateBoard();
     
     return {
-        get board() {
-            return board;
-        }, 
         placeShip,
         placeShipRandomly, 
         receiveAttack,
@@ -147,6 +145,9 @@ function Gameboard() {
         isBoardEmpty,
         generateBoard,
         isAlreadyHit,
+        get board() {
+            return board;
+        }, 
         get missedHits() {
             return missedHits;
         },

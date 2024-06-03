@@ -12,17 +12,9 @@ function GameController(humanName, computerName = 'Lil CPU') {
     
     const playRound = (y, x) => {
         if (human.playerBoard.isBoardEmpty()) {
-            console.log('board is empty');
             return;
         }
    
-        // if (computer.playerBoard.isAlreadyHit(getComputerBoard(), y, x)) {
-        //     console.log('INSIDE OF ALREADY HIT CHECK');
-        //     return;
-        // }
-
-        
-
         // Check if player is human and call correct method on computer
         if (getCurrentPlayer() == players[0]) {
             opponent.receivePlayerAttack(y, x);
@@ -33,10 +25,8 @@ function GameController(humanName, computerName = 'Lil CPU') {
             console.log('This is human board when current player is computer', getHumanBoard())
             currentPlayer.computerAttack(opponent);
         }
-        console.log(checkForWinner())
         switchPlayerTurn();
         printRoundInfo();
-        console.log(`computer placed ships - ${getComputerObject().playerBoard.placedShips.length}`)
     }
 
     const switchPlayerTurn = () => {
@@ -73,7 +63,6 @@ function GameController(humanName, computerName = 'Lil CPU') {
         computer.placePlayerShipRandomly(computerDestroyer);
         computer.placePlayerShipRandomly(computerBattleship);
         computer.placePlayerShipRandomly(computerCarrier);
-
     }
 
     const checkForWinner = () => {

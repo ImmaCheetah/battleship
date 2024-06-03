@@ -53,13 +53,20 @@ table {
   --cells: rgb(254, 253, 253);
   --ship: #6395d2;
   --hit: rgb(163, 56, 56);
-  --miss: rgb(83, 83, 83);
+  --miss: rgb(128, 128, 128);
   --hover: rgb(174, 174, 174);
+}
+
+body {
+  font-size: 30px;
+  color: var(--main-text-clr);
 }
 
 /* HEADER || */
 .header-div {
+  position: absolute;
   height: 80px;
+  width: 100vw;
   background-color: var(--header);
   display: flex;
   align-items: center;
@@ -95,16 +102,6 @@ input {
 }
 
 /* BOARD CONTAINER || */
-
-.grid-cell {
-  /* width: 8px;
-  height: 8px; */
-  padding: 10px;
-  appearance: none;
-  border: none;
-  margin: 1px;
-}
-
 .boards-container {
   display: flex;
   gap: 3em;
@@ -117,21 +114,47 @@ input {
   /* padding: 1em; */
 }
 
+.grid-cell {
+  /* width: 8px;
+  height: 8px; */
+  padding: 10px;
+  appearance: none;
+  border: none;
+  margin: 1px;
+}
+
+/* PLAYER DIV || */
 .name-div {
   display: flex;
 }
 
+.human-name, .computer-name {
+  height: 50px;
+}
+
+.winner-div {
+  padding: 15px;
+}
+
+/* BUTTONS || */
+button {
+  appearance: none;
+  border: none;
+  padding: 12px;
+  font-size: 18px;
+  background-color: var(--header);
+  color: var(--main-text-clr);
+}
+
+/* PROPERTY COLOURS || */
 .ship {
   background-color: var(--ship);
   border: solid 1px white;
 }
 
-.no-click {
-  pointer-events: none;
-}
-
 .missed {
   background-color: var(--miss);
+  border: solid 1px white;
 }
 
 .hit {
@@ -140,6 +163,15 @@ input {
 }
 
 /* EFFECTS || */
-.grid-cell:hover {
-  background-color: var(--hover);
+#confirm-btn:active, .randomize-btn:active, .start-btn:active {
+  background-color: #5c5c5c;
+  transform: translateY(4px);
 }
+
+.no-click {
+  pointer-events: none;
+}
+
+/* .grid-cell:hover {
+  background-color: var(--hover);
+} */

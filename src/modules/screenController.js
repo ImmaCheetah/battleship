@@ -1,19 +1,19 @@
 import { GameController } from "./gameController";
 import { Player, Computer } from "./playerFactory";
 
-
-
 export default function ScreenController() {
     const startBtn = document.querySelector('.start-btn');
     const randomizeBtn = document.querySelector('.randomize-btn');
+    const confirmBtn = document.getElementById('confirm-btn');
 
     let placeHolder = Player();
+    let game = GameController();
 
     renderBoard(placeHolder, 'computer');
     renderBoard(placeHolder, 'human');
 
     function getPlayerName() {
-        const playerNameInput = document.getElementById('player-name');
+        const playerNameInput = document.getElementById('name');
 
         return playerNameInput.value;
     }
@@ -27,12 +27,12 @@ export default function ScreenController() {
                 gridCell.classList.add(div, 'grid-cell');
                 gridCell.setAttribute('data-coords', [indexY, indexX])
                 boardDiv.appendChild(gridCell)
-                // if (item.ship != null && div !== 'computer') {
-                //     gridCell.classList.add('ship');
-                // }
-                if (item.ship != null) {
+                if (item.ship != null && div !== 'computer') {
                     gridCell.classList.add('ship');
                 }
+                // if (item.ship != null) {
+                //     gridCell.classList.add('ship');
+                // }
 
                 if (item.missedHit == true) {
                     gridCell.classList.add('missed');
@@ -54,6 +54,7 @@ export default function ScreenController() {
         computerNameDiv.textContent = computerObj.playerName;
     }
 
+    // Not used as turns switch instantly
     function displayTurn() {
         const playerTurn = document.querySelector('.player-turn');
         playerTurn.textContent = `${game.getCurrentPlayer().playerName}'s turn`;
@@ -61,10 +62,10 @@ export default function ScreenController() {
 
     function displayWinnerAndEndGame() {
         const winnerDiv = document.querySelector('.winner-div');
-        const humanBoard = document.querySelector('.human-board');
-        const computerBoard = document.querySelector('.computer-board');
 
-        winnerDiv.textContent = game.checkForWinner();
+        if (!game.getHumanObject().playerBoard.isBoardEmpty()) {
+            winnerDiv.textContent = game.checkForWinner();
+        }
 
     }
 
@@ -76,7 +77,6 @@ export default function ScreenController() {
                 playRoundsWithCheck(e);
                 renderBoard(game.getHumanObject(), 'human');
                 renderBoard(game.getComputerObject(), 'computer');
-                displayTurn();
                 displayWinnerAndEndGame();
                 makeCellsClickable();
                 alternateDisableBoard();
@@ -101,7 +101,7 @@ export default function ScreenController() {
         const humanBoard = document.querySelector('.human-board');
         const computerBoard = document.querySelector('.computer-board');
 
-        if (game.getCurrentPlayer().playerName === "Dave") {
+        if (game.getCurrentPlayer() == game.getHumanObject()) {
             humanBoard.classList.add('no-click');
             computerBoard.classList.remove('no-click');
         } else {
@@ -118,13 +118,29 @@ export default function ScreenController() {
         computerBoard.textContent = '';
     }
 
-    let game = GameController('Dave');
+    
     alternateDisableBoard();
+    // alternateDisableBoard();
+    showModal(); 
+
+    function showModal() {
+        const nameModal = document.getElementById('name-dialog');
+
+        nameModal.showModal(); 
+    }
+
+    confirmBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        game.getHumanObject().updateName(getPlayerName())
+        displayNames(game.getHumanObject(), game.getComputerObject());
+
+        const nameModal = document.getElementById('name-dialog');
+        nameModal.close();
+    })
     
     startBtn.addEventListener('click', () => {
-        displayNames(game.getHumanObject(), game.getComputerObject());
         makeCellsClickable();
-        displayTurn();
     })
 
     randomizeBtn.addEventListener('click', () => {

@@ -1,7 +1,5 @@
 import { GameController } from "../modules/gameController";
 import { Gameboard } from "../modules/gameboardFactory";
-import { Player } from "../modules/playerFactory";
-import { Ship } from "../modules/shipFactory";
 
 test('Game controller module exists', () => {
     expect(GameController).toBeDefined();
@@ -33,6 +31,7 @@ test('Able to switch current player', () => {
 // test each aspect of play round
 describe('Play round function', () => {
     let game = GameController('Dave');
+    game.placeShipsRandomly();
     test('Places predetermined ships', () => {
         expect(game.getCurrentPlayer().playerBoard.placedShips.length).toBeGreaterThan(1);
         expect(game.getOpponent().playerBoard.placedShips.length).toBeGreaterThan(1);
@@ -66,13 +65,12 @@ describe('Play round function', () => {
     })
 })
 
+test('Able to change name of player', () => {
+    let game = GameController('Dave');
+
+    game.getHumanObject().updateName('Bongo');
+    expect(game.getHumanObject().playerName).toBe('Bongo');
+})
 
 
-// Current player is chosen off the start, will be human
-// Both boards are printed
-// Current player gets to attack enemy board
-// Check if all ships are sunk
-//  - if they are, declare winner
-//  - if not, continue
-// Switch player to computer
-// Computer will attack random coordinate on its own
+
