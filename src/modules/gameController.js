@@ -1,142 +1,148 @@
 import { Computer, Player } from "./playerFactory";
 import { Ship } from "./shipFactory";
 
-function GameController(humanName, computerName = 'Lil CPU') {
-    let human = Player(humanName);
-    let computer = Computer(computerName);
+function GameController(humanName, computerName = "Lil CPU") {
+  let human = Player(humanName);
+  let computer = Computer(computerName);
 
-    let players = [human, computer];
+  let players = [human, computer];
 
-    let currentPlayer = players[0];
-    let opponent = players[1];
-    
-    const playRound = (y, x) => {
-        if (human.playerBoard.isBoardEmpty()) {
-            return;
-        }
-   
-        // Check if player is human and call correct method on computer
-        if (getCurrentPlayer() == players[0]) {
-            opponent.receivePlayerAttack(y, x);
-            console.log('This is computer board when current player is human', getComputerBoard())
+  let currentPlayer = players[0];
+  let opponent = players[1];
 
-            // If computer then call computerAttack on human
-        } else {
-            console.log('This is human board when current player is computer', getHumanBoard())
-            currentPlayer.computerAttack(opponent);
-        }
-        switchPlayerTurn();
-        printRoundInfo();
+  const playRound = (y, x) => {
+    if (human.playerBoard.isBoardEmpty()) {
+      return;
     }
 
-    const switchPlayerTurn = () => {
-        if (getCurrentPlayer() == players[0]) {
-            currentPlayer = players[1];
-            opponent = players[0];
-        } else {
-            currentPlayer = players[0];
-            opponent = players[1];
-        }
+    // Check if player is human and call correct method on computer
+    if (getCurrentPlayer() == players[0]) {
+      opponent.receivePlayerAttack(y, x);
+      // console.log(
+      //   "This is computer board when current player is human",
+      //   getComputerBoard(),
+      // );
+
+      // If computer then call computerAttack on human
+    } else {
+      // console.log(
+      //   "This is human board when current player is computer",
+      //   getHumanBoard(),
+      // );
+      currentPlayer.computerAttack(opponent);
+    }
+    switchPlayerTurn();
+    printRoundInfo();
+  };
+
+  const switchPlayerTurn = () => {
+    if (getCurrentPlayer() == players[0]) {
+      currentPlayer = players[1];
+      opponent = players[0];
+    } else {
+      currentPlayer = players[0];
+      opponent = players[1];
+    }
+  };
+
+  const placeShipsRandomly = () => {
+    let humanCruiser = Ship(2);
+    let humanSub = Ship(3);
+    let humanDestroyer = Ship(3);
+    let humanBattleship = Ship(4);
+    let humanCarrier = Ship(5);
+
+    let computerCruiser = Ship(2);
+    let computerSub = Ship(3);
+    let computerDestroyer = Ship(3);
+    let computerBattleship = Ship(4);
+    let computerCarrier = Ship(5);
+
+    human.placePlayerShipRandomly(humanCruiser);
+    human.placePlayerShipRandomly(humanSub);
+    human.placePlayerShipRandomly(humanDestroyer);
+    human.placePlayerShipRandomly(humanBattleship);
+    human.placePlayerShipRandomly(humanCarrier);
+
+    computer.placePlayerShipRandomly(computerCruiser);
+    computer.placePlayerShipRandomly(computerSub);
+    computer.placePlayerShipRandomly(computerDestroyer);
+    computer.placePlayerShipRandomly(computerBattleship);
+    computer.placePlayerShipRandomly(computerCarrier);
+
+    restartComputerAttackArray();
+  };
+
+  const restartComputerAttackArray = () => {
+    computer.refillAttackArray();
+  };
+
+  const returnWinner = () => {
+    if (checkForWin(getCurrentPlayer())) {
+      return `${getOpponent().playerName} is the winner!`;
     }
 
-    const placeShipsRandomly = () => {
-        let humanCruiser = Ship(2);
-        let humanSub = Ship(3);
-        let humanDestroyer = Ship(3);
-        let humanBattleship = Ship(4);
-        let humanCarrier = Ship(5);
-
-        let computerCruiser = Ship(2);
-        let computerSub = Ship(3);
-        let computerDestroyer = Ship(3);
-        let computerBattleship = Ship(4);
-        let computerCarrier = Ship(5);
-
-        human.placePlayerShipRandomly(humanCruiser);
-        human.placePlayerShipRandomly(humanSub);
-        human.placePlayerShipRandomly(humanDestroyer);
-        human.placePlayerShipRandomly(humanBattleship);
-        human.placePlayerShipRandomly(humanCarrier);
-
-        computer.placePlayerShipRandomly(computerCruiser);
-        computer.placePlayerShipRandomly(computerSub);
-        computer.placePlayerShipRandomly(computerDestroyer);
-        computer.placePlayerShipRandomly(computerBattleship);
-        computer.placePlayerShipRandomly(computerCarrier);
-
-        restartComputerAttackArray();
+    if (checkForWin(getOpponent())) {
+      return `${getCurrentPlayer().playerName} is the winner!`;
     }
+  };
 
-    const restartComputerAttackArray = () => {
-        computer.refillAttackArray()
+  const checkForWin = (playerObj) => {
+    if (playerObj.playerBoard.allShipsSunk() === true) {
+      return true;
+    } else {
+      return false;
     }
+  };
 
-    const checkForWinner = () => {
-        if (checkForWin(getCurrentPlayer())) {
-            return `${getOpponent().playerName} is the winner!`;
-        }
+  const printRoundInfo = () => {
+    console.log(`It's ${getCurrentPlayer().playerName}'s turn`);
+  };
 
-        if (checkForWin(getOpponent())) {
-            return `${getCurrentPlayer().playerName} is the winner!`;
-        }
-    }
+  const replaceBoards = () => {
+    human.playerBoard.generateBoard();
+    computer.playerBoard.generateBoard();
+  };
 
-    const checkForWin = (playerObj) => {
-        if (playerObj.playerBoard.allShipsSunk() === true) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+  const getCurrentPlayer = () => {
+    return currentPlayer;
+  };
 
-    const printRoundInfo = () => {
-        console.log(`It's ${getCurrentPlayer().playerName}'s turn`)
-    }
+  const getOpponent = () => {
+    return opponent;
+  };
 
-    const replaceBoards = () => {
-        human.playerBoard.generateBoard();
-        computer.playerBoard.generateBoard();
-    }
+  const getHumanObject = () => {
+    return human;
+  };
 
-    const getCurrentPlayer = () => {
-        return currentPlayer;
-    }
+  const getComputerObject = () => {
+    return computer;
+  };
 
-    const getOpponent = () => {
-        return opponent;
-    }
+  const getHumanBoard = () => {
+    return human.playerBoard.board;
+  };
 
-    const getHumanObject = () => {
-        return human;
-    }
+  const getComputerBoard = () => {
+    return computer.playerBoard.board;
+  };
 
-    const getComputerObject = () => {
-        return computer;
-    }
-
-    const getHumanBoard = () => {
-        return human.playerBoard.board;
-    }
-
-    const getComputerBoard = () => {
-        return computer.playerBoard.board;
-    }
-
-    return {
-        getCurrentPlayer, 
-        getOpponent, 
-        playRound, 
-        getHumanBoard, 
-        getComputerBoard,
-        getComputerObject,
-        getHumanObject,
-        switchPlayerTurn,
-        printRoundInfo,
-        checkForWinner,
-        checkForWin,
-        placeShipsRandomly,
-        replaceBoards
-    }
+  return {
+    getCurrentPlayer,
+    getOpponent,
+    playRound,
+    getHumanBoard,
+    getComputerBoard,
+    getComputerObject,
+    getHumanObject,
+    switchPlayerTurn,
+    printRoundInfo,
+    returnWinner,
+    checkForWin,
+    placeShipsRandomly,
+    replaceBoards,
+  };
 }
 
-export {GameController}
+export { GameController };
