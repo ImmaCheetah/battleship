@@ -21,12 +21,12 @@ export default function ScreenController() {
         gridCell.classList.add(div, "grid-cell");
         gridCell.setAttribute("data-coords", [indexY, indexX]);
         boardDiv.appendChild(gridCell);
-        // if (item.ship != null && div !== 'computer') {
-        //     gridCell.classList.add('ship');
-        // }
-        if (item.ship != null) {
-          gridCell.classList.add("ship");
+        if (item.ship != null && div !== 'computer') {
+            gridCell.classList.add('ship');
         }
+        // if (item.ship != null) {
+        //   gridCell.classList.add("ship");
+        // }
 
         if (item.missedHit == true) {
           gridCell.classList.add("missed");
