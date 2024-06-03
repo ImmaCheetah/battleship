@@ -1,6 +1,6 @@
 # project-name
 
-> [Live Website](https://immacheetah.github.io/propject-name/)
+> [Live Website](https://immacheetah.github.io/battleship/)
 
 ## Preview
 
@@ -12,12 +12,14 @@
 ## Getting Started
 
 ```
-$ git clone git@github.com:immacheetah/project-name.git
-$ cd propject-name
+$ git clone git@github.com:immacheetah/battleship.git
+$ cd battleship
 $ npm run build
 $ npm start
 ```
 
 ## Learning Outcomes
 
--
+- TDD
+- Handling multiple modules
+- DOM Manipulation
