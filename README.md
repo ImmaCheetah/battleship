@@ -1,4 +1,4 @@
-# project-name
+# Battleship
 
 > [Live Website](https://immacheetah.github.io/battleship/)
 
